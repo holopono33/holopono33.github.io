@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.holopono33.flagquiz",
+      "sha256_cert_fingerprints": [
+        "0B:26:9E:74:FD:07:E4:AA:02:D4:33:10:99:5D:38:7D:84:E7:C6:A3:59:7D:55:07:59:C0:18:D7:6C:48:02:C2"
+      ]
+    }
+  }
+]
