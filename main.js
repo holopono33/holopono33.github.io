@@ -155,7 +155,7 @@ if(correct){
   wrongList = wrongList.filter(c => c.code !== current.code);
 
   playCorrect();
-  show("○ 正解！","green");
+  show("○ 正解！/Correct!","green");
 
 }else{
   combo = 0;
@@ -176,7 +176,7 @@ clearInterval(timer);
 }
 combo=0;
 addWrong();
-show("正解: " + current.jp + " / " + current.en, "red");
+show("× 正解: " + current.jp + " / " + current.en, "red");
 updateUI();
 setTimeout(nextQuestion,1500);
 }

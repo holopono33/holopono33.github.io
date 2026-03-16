@@ -2,12 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2196f3">
 <title>国旗クイズ/FLAG QUIZ</title>
 
 <style>
+
+/* ===== 基本設定 ===== */
+
+*{
+  box-sizing:border-box;
+}
+
 /* ==== 全体背景 ==== */
 body{
   margin:0;
@@ -16,7 +23,8 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  min-height:100vh;
+  min-height:100dvh;
+  overflow-x:hidden;
 }
 
 /* ===== 共通カード（ホーム＆ゲーム） ===== */
@@ -30,7 +38,13 @@ body{
   box-shadow:0 15px 30px rgba(0,0,0,0.2);
   text-align:center;
   animation:fadeIn .3s ease;
+  margin:0 auto;
 }
+
+/* ===== ゲーム画面 ===== */
+#gameScreen{
+  }
+
 #homeScreen h1{
   font-size:22px;
 }
@@ -48,10 +62,14 @@ h1{
 
 /* ===== 上部バー ===== */
 .topbar{
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  margin-bottom:4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size:15px;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
 }
 
 .timer{
@@ -62,10 +80,10 @@ h1{
 /* ===== 国旗 ===== */
 #flag{
   width:100%;
-  max-width:280px;
-  height:180px;
+  max-width:320px;
+  height:210px;
   object-fit:contain;
-  margin:15px 0;
+  margin:10px 0;
   border-radius:12px;
   box-shadow:0 5px 15px rgba(0,0,0,0.2);
   background:white;
@@ -105,6 +123,13 @@ button{
   transition:0.2s;
 }
 
+button.word{
+  padding:16px;
+  font-size:18px;
+  font-weight:bold;
+  background:linear-gradient(135deg,#4e73df,#2e59d9);
+}
+
 button:hover{
   transform:translateY(-2px);
   opacity:0.9;
@@ -123,13 +148,23 @@ button.review{
   background:#f6c23e;
   color:black;
 }
+/* ===== 入力画面 ===== */
+input{
+  width:100%;
+  padding:12px;
+  font-size:16px;
+  border-radius:12px;
+  border:2px solid #ddd;
+  margin-top:10px;
+}
+
 
 /* ===== 結果表示 ===== */
 .result,
 #result{
-  font-size:16px;
-  min-height:35px;
-  margin-top:8px;
+  font-size:18px;
+  min-height:29px;
+  margin-top:5px;
   font-weight:bold;
 }
 
@@ -172,7 +207,7 @@ button.review{
   border-radius:15px;
   background:linear-gradient(135deg,#fff3cd,#ffe8a1);
   box-shadow:0 8px 15px rgba(0,0,0,0.15);
-  font-size:14px;
+  font-size:13px;
 }
 .rankS{ color:gold; font-weight:bold; }
 .rankA{ color:#28a745; }
@@ -250,18 +285,18 @@ button.review{
 <div class="app">
 <div class="topbar">
 <div>Score:<span id="score">0</span></div>
-<div>🏆:<span id="highScore">0</span></div>
 <div>Continue:<span id="combo">0</span></div>
-<div>Review:<span id="reviewCount">0</span></div>
 <div class="timer">⏱<span id="time">10</span></div>
+<div>Review:<span id="reviewCount">0</span></div>
+<div>🏆:<span id="highScore">0</span></div>
 </div>
   <button onclick="goHome()">← ホームに戻る/Back to Home</button>
   <h2 id="modeTitle"></h2>
   <div>正答率/Accuracy rate: <span id="accuracy">0</span>%</div>
-  <img id="flag" width="300">
+  <img id="flag">
   <p id="result"></p>
   <input type="text" id="answer" placeholder="国名を入力/country name here">
-  <button onclick="checkAnswer()">答える/Answer</button>
+  <button class="word" onclick="checkAnswer()">答える/Answer</button>
   <button class="skip" onclick="skipQuestion()">次へ/Skip</button>
   <button class="pause" onclick="togglePause()">⏸停止Stop/再開Start</button>
 
