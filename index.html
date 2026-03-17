@@ -246,13 +246,27 @@ input{
   gap:10px;
 }
 
-
+#loadingScreen{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:18px;
+  z-index:9999;
+}
 
 
 </style>
 </head>
 <body>
-
+<div id="loadingScreen">
+  <p>初回準備中... / Loading...</p>
+</div>
 <!-- 🏠 ホーム面 -->
 <div id="homeScreen">
 <h1>🌍 FLAG QUIZ<BR>-世界196カ国 国旗クイズ-</h1>
@@ -515,7 +529,7 @@ aliases:["朝鮮民主主義人民共和国","ちょうせんみんしゅしゅ�
 {jp:"モンゴル", en:"Mongolia", code:"mn", continent:" Asia"},
 {jp:"台湾", en:"Taiwan", code:"tw", continent:" Asia",aliases:["たいわん","タイワン"]},
 {jp:"コソボ", en:"kosovo", code:"xk", continent:" Europe"},
-{jp:"ニウエ", en:"niue", code:"xk", continent:" Oceania"},
+{jp:"ニウエ", en:"niue", code:"nu", continent:" Oceania"},
 {jp:"コートジボワール", en:"cote d'Ivoire", code:"ci", continent:" Africa"},
 {jp:"クック諸島", en:"cook Islands", code:"ck", continent:" Oceania",aliases:["くっくしょとう","クックショトウ","cook"]},
 
@@ -551,5 +565,25 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 
+<script>
+(function () {
+  function hideLoading() {
+    var loading = document.getElementById("loadingScreen");
+    if (loading) {
+      loading.style.display = "none";
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", hideLoading);
+  } else {
+    hideLoading();
+  }
+
+  window.addEventListener("pageshow", hideLoading);
+
+  setTimeout(hideLoading, 1500);
+})();
+</script>
 </body>
 </html>
