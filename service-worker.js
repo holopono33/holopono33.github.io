@@ -1,4 +1,4 @@
-const CACHE_NAME = "flag-quiz-v1";
+const CACHE_NAME = "flag-quiz-v2-20260317";// ←さらに1回変えてください
 
 const urlsToCache = [
   "./",
@@ -10,10 +10,26 @@ const urlsToCache = [
 ];
 
 self.addEventListener("install", event => {
+  self.skipWaiting(); // ←追加
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(urlsToCache);
     })
+  );
+});
+
+// ★これを追加（超重要）
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(() => self.clients.claim())
   );
 });
 
