@@ -95,8 +95,8 @@ if (gameMode === "timeAttack") {
 
 current = source[Math.floor(Math.random()*source.length)];
 
-document.getElementById("flag").src =
-"https://flagcdn.com/w320/"+current.code+".png";
+document.getElementById("flag").src = 
+"flags/" + current.code + ".png";
 
 document.getElementById("answer").value="";
 document.getElementById("result").textContent="";
@@ -467,3 +467,4 @@ function launchConfetti(level = 1){　　//紙吹雪
 updateHighScore();
 nextQuestion();
 updateTimeAttackDisplay();
+
