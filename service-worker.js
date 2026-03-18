@@ -1,4 +1,4 @@
-const CACHE_NAME = "flag-quiz-v4-20260318";// ←さらに1回変えてください
+const CACHE_NAME = "flag-quiz-v5-20260319";// ←さらに1回変えてください
 
 const urlsToCache = [
   "./",
