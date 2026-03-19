@@ -424,15 +424,17 @@ input{
 
   <button class="challenge-btn" onclick="startTimeAttack()">
     <span class="mode-title">🏆 1分チャレンジ / 1-minute challenge</span>
-    <span class="mode-subtext">1分で何問解けるか挑戦 / Solve as many as you can in 1 minute</span>
+    <!-- <span class="mode-subtext">1分で何問解けるか挑戦 / Solve as many as you can in 1 minute</span>-->
   </button>
 </div>
 
 <div id="timeAttackResult" class="timeResultBox">
   <h3>🏆 1分チャレンジ記録 / 1-minute challenge record</h3>
   <p>最高スコア / High score: <span id="taHighScore">0</span></p>
-  <p>ランク / Rank: <span id="taRank">-</span></p>
-  <p>順位 / Place: <span id="taRanking">-</span></p>
+  <p style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:0;">
+  <span>ランク / Rank: <span id="taRank">-</span></span>
+  <span>順位 / Place: <span id="taRanking">-</span></span>
+</p>
 </div>
 </div>
 
@@ -446,17 +448,17 @@ input{
 <div>Review:<span id="reviewCount">0</span></div>
 <div>🏆:<span id="highScore">0</span></div>
 </div>
-  <button onclick="goHome()">← ホームに戻る/Back to Home</button>
+  <button onclick="goHome()">← ホームに戻る / Back to Home</button>
   <h2 id="modeTitle"></h2>
-  <div>正答率/Accuracy rate: <span id="accuracy">0</span>%</div>
+  <div>正答率 / Accuracy rate: <span id="accuracy">0</span>%</div>
   <div class="flagWrap">
   <img id="flag">
  </div>
   <p id="result"></p>
   <input type="text" id="answer" placeholder="国名を入力/country name here">
-  <button class="word" onclick="checkAnswer()">答える/Answer</button>
-  <button class="skip" onclick="skipQuestion()">次へ/Skip</button>
-  <button class="pause" onclick="togglePause()">⏸停止Stop/再開Start</button>
+  <button class="word" onclick="checkAnswer()">答える / Answer</button>
+  <button class="skip" onclick="skipQuestion()">次へ / Skip</button>
+  <button class="pause" onclick="togglePause()">⏸ 停止 Stop / 再開 Start</button>
 
 </div></div>
 
