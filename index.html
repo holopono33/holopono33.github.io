@@ -321,6 +321,12 @@ input{
   padding:8px;
   border-radius:18px;
 }
+/*  再開 */
+#gameScreen button.pause.resumeMode{
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  color: white;
+  font-weight: 700;
+}
 
 /* =========================
    共通補助
@@ -371,6 +377,11 @@ input{
   50%{background:linear-gradient(135deg,#ff512f,#dd2476);}
   100%{background:linear-gradient(135deg,#4e73df,#1cc88a);}
 }
+
+#timeAttackResult.newRecord::after {
+  content: " 🎉 NEW RECORD!";
+}
+
 
 /* ローディング画面 */
 #loadingScreen{
@@ -429,7 +440,8 @@ input{
 </div>
 
 <div id="timeAttackResult" class="timeResultBox">
-  <h3>🏆 1分チャレンジ記録 / 1-minute challenge record</h3>
+  <h3>🏆 チャレンジ記録 /challenge record</h3>
+  <p>今回 / Score: <span id="currentScore">-</span></p>
   <p>最高スコア / High score: <span id="taHighScore">0</span></p>
   <p style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:0;">
   <span>ランク / Rank: <span id="taRank">-</span></span>
@@ -458,7 +470,7 @@ input{
   <input type="text" id="answer" placeholder="国名を入力/country name here">
   <button class="word" onclick="checkAnswer()">答える / Answer</button>
   <button class="skip" onclick="skipQuestion()">次へ / Skip</button>
-  <button class="pause" onclick="togglePause()">⏸ 停止 Stop / 再開 Start</button>
+  <button id="pauseBtn" class="pause" onclick="togglePause()">⏸ 停止 / Pause</button>
 
 </div></div>
 

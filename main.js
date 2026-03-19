@@ -193,21 +193,26 @@ r.textContent=t;
 r.style.color=color;
 }
 
-function togglePause(){
-
+function togglePause() {
   paused = !paused;
 
-  if(paused){
-    // 停止
+  const btn = document.getElementById("pauseBtn");
+
+  if (paused) {
     clearInterval(timer);
     clearInterval(timeAttackTimer);
-  }else{
-    // 再開
-    if(isTimeAttack){
+
+    btn.textContent = "▶ 再開 / Resume";
+    btn.classList.add("resumeMode");
+  } else {
+    if (isTimeAttack) {
       startTimeAttackTimer();
-    }else{
+    } else {
       startTimer();
     }
+
+    btn.textContent = "⏸ 停止 / Pause";
+    btn.classList.remove("resumeMode");
   }
 }
 
@@ -255,15 +260,25 @@ function startReview() {
 
 function startTimeAttack() {
   clearInterval(timer); // 10秒タイマーを完全停止
-  
+
   gameMode = "timeAttack";
   isTimeAttack = true;
   totalTime = 60;
   score = 0;
   combo = 0;
-  
+  paused = false;
+
   document.getElementById("modeTitle").innerText = "🔥 1分チャレンジ/1-minute challenge";
   showGameScreen();
+
+  document.getElementById("score").textContent = 0;
+  document.getElementById("currentScore").textContent = 0;
+  document.getElementById("timeAttackResult").classList.remove("newRecord");
+
+  const btn = document.getElementById("pauseBtn");
+  btn.textContent = "⏸ 停止 / Pause";
+  btn.classList.remove("resumeMode");
+
   startTimeAttackTimer();
   nextQuestion();
 }
@@ -334,6 +349,9 @@ function endTimeAttack(){
   clearInterval(timer);
   clearInterval(timeAttackTimer);
   isTimeAttack = false;
+
+  // ★ これ追加（今回スコア表示）
+  document.getElementById("currentScore").textContent = score;
 
   let best = localStorage.getItem("taHighScore") || 0;
 
