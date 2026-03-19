@@ -3,31 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <title>オフライン</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
-font-family:sans-serif;
-text-align:center;
-background:linear-gradient(135deg,#4e73df,#1cc88a);
-color:white;
-padding-top:20%;
+  margin:0;
+  font-family:sans-serif;
+  text-align:center;
+  background:linear-gradient(135deg,#4e73df,#1cc88a);
+  color:white;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.box{
+  max-width:420px;
 }
 
 h1{
-font-size:40px;
+  font-size:34px;
+  margin-bottom:16px;
 }
 
 p{
-font-size:20px;
+  font-size:18px;
+  line-height:1.6;
+  margin:8px 0;
+}
+
+.small{
+  font-size:14px;
+  opacity:0.9;
 }
 </style>
-
 </head>
 
 <body>
-
-<h1>⚠ オフライン</h1>
-<p>インターネットに接続してください</p>
-
+  <div class="box">
+    <h1>📴 オフラインです</h1>
+    <p>インターネットに接続できません。</p>
+    <p>このアプリは、一度読み込み後は<br>オフラインでも遊べる場合があります。</p>
+    <p class="small">ページが開かない場合は、通信できる場所で再度お試しください。</p>
+  </div>
 </body>
 </html>

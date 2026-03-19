@@ -283,26 +283,6 @@ function startTimeAttack() {
   nextQuestion();
 }
 
-//function startTimeAttackTimer(){
-
- // clearInterval(timeAttackTimer); // ← これ追加
-
- // document.getElementById("time").textContent = totalTime;
-
- // timeAttackTimer = setInterval(() => {
-
-   // if(!paused){
-      //totalTime--;
-      //document.getElementById("time").textContent = totalTime;
-
-      //if(totalTime <= 0){
-      //  clearInterval(timeAttackTimer);
-     //   endTimeAttack();
-     // }
-    //}
-
-  //}, 1000);
-//}
 
 function startTimeAttackTimer(){
 
