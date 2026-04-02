@@ -251,11 +251,42 @@ function startContinent() {
   nextQuestion();
 }
 
+
+
 function startReview() {
   gameMode = "review";
   document.getElementById("modeTitle").innerText = "復習モード/Review mode";
   showGameScreen();
   nextQuestion();
+}
+
+function openContinentModal() {
+  const modal = document.getElementById("continentModal");
+  const select = document.getElementById("continentSelect");
+
+  // ⭐ 毎回リセット
+  select.value = "";
+
+  modal.classList.remove("hidden");
+}
+
+function closeContinentModal(event) {
+  const modal = document.getElementById("continentModal");
+
+  // 背景クリックでも閉じる
+  if (!event || event.target === modal) {
+    modal.classList.add("hidden");
+  }
+}
+
+function startContinentFromSelect() {
+  const select = document.getElementById("continentSelect");
+
+  if (!select.value) return;
+
+  changeContinent();   // ←あなたの既存関数
+  closeContinentModal();
+  startContinent();    // ←あなたの既存関数
 }
 
 function startTimeAttack() {

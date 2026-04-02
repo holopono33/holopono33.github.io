@@ -148,6 +148,7 @@ h1{
   margin:0;
 }
 
+
 /* 1分チャレンジ記録 */
 #homeScreen .timeResultBox{
   margin-top:14px;
@@ -397,6 +398,96 @@ input{
   font-size:18px;
   z-index:9999;
 }
+/* ===== モーダル背景 ===== */
+.modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.35);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+  padding:20px;
+}
+
+.modal.hidden{
+  display:none;
+}
+
+/* ===== モーダル本体 ===== */
+.modalContent{
+  width:100%;
+  max-width:320px;
+  background:white;
+  border-radius:20px;
+  padding:22px 18px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.25);
+  text-align:center;
+  animation:fadeIn .2s ease;
+}
+
+.modalContent h3{
+  margin:0 0 14px 0;
+  font-size:20px;
+}
+
+/* プルダウン */
+.modalContent select{
+  width:100%;
+  padding:12px;
+  font-size:15px;
+  border-radius:14px;
+  border:1px solid #ddd;
+  margin-bottom:14px;
+}
+
+/* 閉じるボタン */
+.modalCloseBtn{
+  display:inline-block;
+  width:auto;
+  min-width:140px;
+  padding:3px 12px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#64748b,#475569);
+  color:white;
+  font-size:14px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:6px;
+}
+.modalCloseBtn:hover{
+  opacity:0.9;
+  transform:translateY(-1px);
+}
+
+#continentModal button{
+  min-height:auto !important;
+}
+
+#continentModal .modalCloseBtn{
+  display:inline-block !important;
+  width:auto !important;
+
+  padding:13px 18px !important;   /* ← 小さくする */
+  font-size:15px !important;
+
+  line-height:1.2 !important;    /* ← これ重要 */
+
+  border:none !important;
+  border-radius:10px !important;
+
+  background:linear-gradient(135deg,#64748b,#475569) !important;
+  color:white !important;
+
+  font-weight:bold !important;
+  cursor:pointer !important;
+  margin-top:6px !important;
+  letter-spacing:0.5px !important;
+}
 
 </style>
 </head>
@@ -414,20 +505,33 @@ input{
     <span class="mode-subtext">全196か国から出題 / All 196 countries</span>
   </button>
 
-  <button class="continent-btn" onclick="startContinent()">
-    <span class="mode-title">🌎 大陸別モード / Continent mode</span>
-    <span class="mode-subtext">選んだ大陸から出題 / Quiz by continent</span>
-  </button>
+  <!-- 🌎 大陸モードボタン -->
+<button class="continent-btn" onclick="openContinentModal()">
+  <span class="mode-title">🌎 大陸別モード / Continent mode</span>
+  <span class="mode-subtext">選んだ大陸から出題 / Quiz by continent</span>
+</button>
 
-  <select id="continentSelect" onchange="changeContinent()">
-    <option value="asia">アジア / Asia</option>
-    <option value="europe">ヨーロッパ / Europe</option>
-    <option value="africa">アフリカ / Africa</option>
-    <option value="northamerica">北米 / North America</option>
-    <option value="southamerica">南米 / South America</option>
-    <option value="oceania">オセアニア / Oceania</option>
-  </select>
+<!-- 🌎 モーダル -->
+<div id="continentModal" class="modal hidden" onclick="closeContinentModal(event)">
+  <div class="modalContent">
 
+    <h4>🌎 大陸を選ぶ / Select a continent</h4>
+
+    <select id="continentSelect" onchange="startContinentFromSelect()">
+      <option value="">選択してください / Choose one</option>
+      <option value="asia">アジア / Asia</option>
+      <option value="europe">ヨーロッパ / Europe</option>
+      <option value="africa">アフリカ / Africa</option>
+      <option value="northamerica">北米 / North America</option>
+      <option value="southamerica">南米 / South America</option>
+      <option value="oceania">オセアニア / Oceania</option>
+    </select>
+
+    <button class="modalCloseBtn" onclick="closeContinentModal()">
+     × 閉じる / Close
+    </button>
+    </div>
+</div>
   <button class="review-btn" onclick="startReview()">
     <span class="mode-title">🔁 復習モード / Review mode</span>
     <span class="mode-subtext">間違えた国を復習 / Review missed flags</span>
