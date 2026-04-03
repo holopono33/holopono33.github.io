@@ -493,7 +493,31 @@ function launchConfetti(level = 1){　　//紙吹雪
   draw();
 }
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+
+(function () {
+  function hideLoading() {
+    var loading = document.getElementById("loadingScreen");
+    if (loading) {
+      loading.style.display = "none";
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", hideLoading);
+  } else {
+    hideLoading();
+  }
+
+  window.addEventListener("pageshow", hideLoading);
+
+  setTimeout(hideLoading, 1500);
+})();
+
 updateHighScore();
 nextQuestion();
 updateTimeAttackDisplay();
+
 
