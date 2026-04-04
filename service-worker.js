@@ -1,4 +1,4 @@
-const CACHE_NAME = "flag-quiz-v10-20260319";
+const CACHE_NAME = "flag-quiz-v11-20260319";
 
 const urlsToCache = [
   "./",
