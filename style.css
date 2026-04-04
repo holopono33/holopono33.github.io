@@ -30,7 +30,7 @@ body{
   margin:0 auto;
   animation:fadeIn .3s ease;
   max-height:96dvh;
-}
+  }
 
 /* ===== フェードアニメーション ===== */
 @keyframes fadeIn{
@@ -101,7 +101,7 @@ h1{
 
 #homeScreen .mode-subtext{
   display:block;
-  font-size:11px;
+  font-size:13px;
   opacity:0.92;
   margin-top:4px;
   font-weight:normal;
@@ -123,6 +123,10 @@ h1{
 
 #homeScreen .challenge-btn{
   background:linear-gradient(135deg,#8b5cf6,#6366f1);
+}
+
+#homeScreen .encyclopediaBtn{
+  background: linear-gradient(135deg, #3aa0ff, #5b7cff);
 }
 
 /* ホーム画面のプルダウン */
@@ -476,3 +480,345 @@ input{
   margin-top:6px !important;
   letter-spacing:0.5px !important;
 }
+
+/* =========================
+   図鑑モード 共通
+========================= */
+
+.screen{
+  padding:20px;
+  text-align:center;
+}
+
+#continentScreen,
+#flagListScreen,
+#countryDetailScreen{
+  width:100%;
+  text-align:center;
+}
+
+#continentScreen .app,
+#flagListScreen .app,
+#countryDetailScreen .app{
+  background:white;
+  width:95%;
+  max-width:420px;
+  padding:18px 16px;
+  border-radius:25px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+  text-align:center;
+  margin:0 auto;
+  animation:fadeIn .3s ease;
+  max-height:96dvh;
+  box-sizing:border-box;
+}
+
+/* =========================
+   戻るボタン 最終統一版
+========================= */
+
+#continentScreen .backBtn,
+#flagListScreen .backBtn,
+#countryDetailScreen .backBtn{
+  width:85%;
+  display:block;
+  margin:22px auto 0;
+  padding:12px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(135deg,#60a5fa,#2563eb);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  transition:0.2s;
+  letter-spacing:0.5px;
+}
+
+#continentScreen .backBtn:hover,
+#flagListScreen .backBtn:hover,
+#countryDetailScreen .backBtn:hover{
+  transform:translateY(-1px);
+  opacity:0.92;
+}
+
+/* =========================
+   大陸選択
+========================= */
+
+.modeTitle{
+  font-size:18px;
+  font-weight:700;
+  margin:0 auto 10px;
+  padding:6px 14px;
+  display:inline-block;
+  background:linear-gradient(90deg,#4e73df,#1cc88a);
+  color:white;
+  border-radius:20px;
+  letter-spacing:0.5px;
+}
+
+.modeSub{
+  font-size:16px;
+  margin-bottom:10px;
+  color:#333;
+}
+
+.continentButtons{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  width:100%;
+  max-width:100%;
+  margin:18px 0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.continentButtons button{
+  width:100%;
+  padding:14px 12px;
+  font-size:16px;
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  color:white;
+  box-shadow:0 6px 14px rgba(0,0,0,0.15);
+  transition:0.2s;
+}
+
+.continentButtons button:hover{
+  transform:translateY(-2px);
+  opacity:0.95;
+}
+
+.continentButtons button:nth-child(1){
+  background:linear-gradient(135deg,#4e73df,#2e59d9);
+}
+.continentButtons button:nth-child(2){
+  background:linear-gradient(135deg,#34d399,#10b981);
+}
+.continentButtons button:nth-child(3){
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
+}
+.continentButtons button:nth-child(4){
+  background:linear-gradient(135deg,#8b5cf6,#6366f1);
+}
+.continentButtons button:nth-child(5){
+  background:linear-gradient(135deg,#06b6d4,#0891b2);
+}
+.continentButtons button:nth-child(6){
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+/* =========================
+   国旗一覧（国旗のみ＋ページ送り）
+========================= */
+
+#flagListScreen .flagListWrapper{
+  width:100%;
+  max-width:100%;
+  margin:0;
+  text-align:center;
+  box-sizing:border-box;
+}
+
+#flagListTitle{
+  width:100%;
+  margin:0 0 14px;
+  font-size:16px;
+  line-height:1.3;
+  text-align:center;
+  box-sizing:border-box;
+  white-space:nowrap;
+}
+
+#flagListTitle span{
+  font-size:13px;
+  font-weight:normal;
+}
+
+.flagOnlyGrid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:12px;
+  width:100%;
+  margin:14px 0 10px;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.flagOnlyCard{
+  background:#fff;
+  border:2px solid #d9d9d9;
+  border-radius:16px;
+  padding:8px;
+  cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  transition:transform 0.15s, box-shadow 0.15s;
+}
+
+.flagOnlyCard:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 12px rgba(0,0,0,0.12);
+}
+
+.flagOnlyCard img{
+  width:80px;
+  height:56px;
+  object-fit:cover;
+  border-radius:6px;
+  border:1px solid #ccc;
+  display:block;
+  margin:auto;
+}
+
+.emptyFlagCard{
+  opacity:0;
+  pointer-events:none;
+}
+
+.emptyFlagInner{
+  width:80px;
+  height:56px;
+  margin:auto;
+}
+
+.pageControls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  width:100%;
+  margin:10px 0 8px;
+  box-sizing:border-box;
+}
+
+.pageBtn{
+  border:none;
+  border-radius:14px;
+  padding:10px 16px;
+  font-size:14px;
+  cursor:pointer;
+  background:#fff;
+  color:#000;
+}
+
+#pageIndicator{
+  font-size:16px;
+  font-weight:bold;
+}
+
+/* =========================
+   詳細画面
+========================= */
+
+#detailTitle{
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+.detailInfo{
+  margin-top:10px;
+}
+
+.mainName{
+  font-size:20px;
+  font-weight:bold;
+  margin:10px 0 12px;
+}
+
+.subName{
+  font-size:15px;
+  color:#333;
+  margin:6px 0;
+  text-align:center;
+  line-height:1.5;
+}
+
+#countryDetailScreen .app{
+  padding:14px 14px;
+}
+
+#detailModeTitle{
+  font-size:16px;
+  font-weight:700;
+  margin:0 auto 12px;
+  padding:6px 14px;
+  display:inline-block;
+  background:linear-gradient(90deg,#4e73df,#1cc88a);
+  color:white;
+  border-radius:20px;
+  letter-spacing:0.5px;
+}
+
+#countryDetailScreen .flagWrap{
+  width:100%;
+  max-width:320px;
+  height:180px;
+  margin:2px auto 0;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+#detailFlag{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center center;
+  display:block;
+  border-radius:12px;
+}
+
+
+.detailExtraInfo{
+  margin-top:14px;
+  text-align:left;
+  font-size:14px;
+  color:#333;
+  line-height:1.6;
+}
+
+.detailRow{
+  margin:6px 0;
+  padding:6px 10px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.45);
+}
+
+.detailLabel{
+  font-weight:600;
+  color:#111;
+  display:inline-block;
+  min-width:118px;
+}
+
+.app{
+  display:flex;
+  flex-direction:column;
+}
+
+#continentScreen .backBtn{
+  width:85%;
+  margin:22px auto 0;
+  padding:12px 18px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(135deg,#60a5fa,#2563eb);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  letter-spacing:0.5px;
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.15),
+    0 0 0 3px rgba(255,255,255,0.65);
+  cursor:pointer;
+  display:block;
+}
+

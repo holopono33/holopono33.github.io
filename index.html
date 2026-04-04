@@ -18,7 +18,7 @@
   <p>初回準備中... / Loading...</p>
 </div>
 <!-- 🏠 ホーム面 -->
-<div id="homeScreen" class="homeMenu">
+<div id="homeScreen" class="homeMenu screen">
 <h1>🌍 FLAG QUIZ<BR>-世界196カ国 国旗クイズ-</h1>
 
   <div class="menuGroup">
@@ -63,6 +63,10 @@
     <span class="mode-title">🏆 1分チャレンジ / 1-minute challenge</span>
     <!-- <span class="mode-subtext">1分で何問解けるか挑戦 / Solve as many as you can in 1 minute</span>-->
   </button>
+  <button class="encyclopediaBtn" onclick="showContinentScreen()">
+  <span class="mode-title">📘 図鑑モード / Encyclopedia</span>
+  <span class="mode-subtext">国旗を見て学ぶ / Browse flags by continent</span>
+</button>
 </div>
 
 <div id="timeAttackResult" class="timeResultBox">
@@ -77,7 +81,7 @@
 </div>
 
 <!-- 🎮 ゲーム画面 -->
-<div id="gameScreen" style="display:none;">
+<div id="gameScreen" class="screen" style="display:none;">
 <div class="app">
 <div class="topbar">
 <div>Score:<span id="score">0</span></div>
@@ -101,6 +105,67 @@
 </div></div>
 
 
+<!-- 🌍 図鑑モード：大陸選択 -->
+<div id="continentScreen" class="screen" style="display:none;">
+  <div class="app">
+    <h2 class="modeTitle">📘 図鑑モード / Encyclopedia</h2>
+    <p class="modeSub">大陸を選んでください !</p>
+
+    <div class="continentButtons">
+      <button onclick="showFlagList('asia')">アジア / Asia</button>
+      <button onclick="showFlagList('europe')">ヨーロッパ / Europe</button>
+      <button onclick="showFlagList('africa')">アフリカ / Africa</button>
+      <button onclick="showFlagList('northamerica')">北アメリカ / North America</button>
+      <button onclick="showFlagList('southamerica')">南アメリカ / South America</button>
+      <button onclick="showFlagList('oceania')">オセアニア / Oceania</button>
+    </div>
+
+    <button class="backBtn" onclick="backToHome()">🏠 ホームに戻る / Back to Home</button>
+  </div>
+</div>
+
+<!-- 🏳️ 国旗一覧画面 -->
+<div id="flagListScreen" class="screen" style="display:none;">
+  <div class="app">
+    <div class="flagListWrapper">
+      <h2 id="flagListTitle">国旗一覧</h2>
+
+      <div id="flagList" class="flagOnlyGrid"></div>
+
+      <div class="pageControls">
+        <button class="pageBtn prevBtn" onclick="prevFlagPage()">⬅ 前へ</button>
+        <span id="pageIndicator">1 / 1</span>
+        <button class="pageBtn nextBtn" onclick="nextFlagPage()">次へ ➡</button>
+      </div>
+
+      <button class="backBtn" onclick="showContinentScreen()">⬅ 大陸選択へ戻る / Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🔍 国詳細画面 -->
+<div id="countryDetailScreen" class="screen" style="display:none;">
+  <div class="app">
+    <h2 id="detailModeTitle">🌍 国の情報 / Country Info</h2>
+
+    <div id="detailCardBody">
+      <div class="flagWrap">
+        <img id="detailFlag" alt="flag">
+      </div>
+
+      <div class="detailInfo">
+        <p id="detailNameJp" class="mainName"></p>
+        <p id="detailNameEn" class="subName"></p>
+        <p id="detailContinent" class="subName"></p>
+
+        <div id="detailExtraInfo" class="detailExtraInfo"></div>
+      </div>
+    </div>
+
+    <button class="backBtn" id="detailBackBtn">⬅ 一覧へ戻る / Back</button>
+  </div>
+</div>
+
 <script src="data.js"></script>
 <script src="main.js"></script>
 
@@ -122,6 +187,7 @@ src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-buzz-950.mp3"></au
          pointer-events:none;
          z-index:999;">
 </canvas>
+
 
 
 </body>

@@ -493,6 +493,7 @@ function launchConfetti(level = 1){　　//紙吹雪
   draw();
 }
 
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
@@ -515,6 +516,163 @@ if ("serviceWorker" in navigator) {
 
   setTimeout(hideLoading, 1500);
 })();
+
+/* =========================
+   図鑑モード
+========================= */
+
+let encyclopediaContinent = "";
+let encyclopediaPage = 1;
+const encyclopediaPageSize = 10;
+let encyclopediaFilteredCountries = [];
+
+// すべての画面を隠す
+function hideAllScreens() {
+  const screens = document.querySelectorAll(".screen");
+  screens.forEach(screen => {
+    screen.style.display = "none";
+  });
+}
+
+// ホームへ戻る
+function backToHome() {
+  hideAllScreens();
+  document.getElementById("homeScreen").style.display = "block";
+}
+
+// 大陸選択画面を表示
+function showContinentScreen() {
+  hideAllScreens();
+  document.getElementById("continentScreen").style.display = "block";
+}
+
+// 国旗一覧表示
+function showFlagList(continent) {
+  encyclopediaContinent = continent;
+  encyclopediaPage = 1;
+
+  const continentNames = {
+    asia: { jp: "アジア", en: "Asia" },
+    europe: { jp: "ヨーロッパ", en: "Europe" },
+    africa: { jp: "アフリカ", en: "Africa" },
+    northamerica: { jp: "北アメリカ", en: "North America" },
+    southamerica: { jp: "南アメリカ", en: "South America" },
+    oceania: { jp: "オセアニア", en: "Oceania" }
+  };
+
+  encyclopediaFilteredCountries = countries.filter(country => country.continent === continent);
+
+  hideAllScreens();
+  document.getElementById("flagListScreen").style.display = "block";
+  document.getElementById("flagListTitle").innerHTML =
+    `🏳️ ${continentNames[continent].jp} / <span>${continentNames[continent].en}</span>`;
+
+  renderFlagPage();
+}
+
+// 一覧の1ページ分を描画
+function renderFlagPage() {
+  const flagList = document.getElementById("flagList");
+  const pageIndicator = document.getElementById("pageIndicator");
+
+  flagList.innerHTML = "";
+
+  const totalPages = Math.ceil(encyclopediaFilteredCountries.length / encyclopediaPageSize);
+  const startIndex = (encyclopediaPage - 1) * encyclopediaPageSize;
+  const endIndex = startIndex + encyclopediaPageSize;
+
+  const pageItems = encyclopediaFilteredCountries.slice(startIndex, endIndex);
+
+  // 実際の国旗カード
+  pageItems.forEach(country => {
+    const card = document.createElement("div");
+    card.className = "flagOnlyCard";
+
+    card.innerHTML = `
+      <img src="flags/${country.code}.png" alt="${country.jp}">
+    `;
+
+    card.addEventListener("click", function() {
+      showCountryDetail(country);
+    });
+
+    flagList.appendChild(card);
+  });
+
+  // 足りない分を空カードで埋める
+  const emptyCount = encyclopediaPageSize - pageItems.length;
+
+  for (let i = 0; i < emptyCount; i++) {
+    const emptyCard = document.createElement("div");
+    emptyCard.className = "flagOnlyCard emptyFlagCard";
+    emptyCard.innerHTML = `<div class="emptyFlagInner"></div>`;
+    flagList.appendChild(emptyCard);
+  }
+
+  pageIndicator.textContent = encyclopediaPage + " / " + totalPages;
+
+  const prevBtn = document.querySelector(".pageControls .prevBtn");
+  const nextBtn = document.querySelector(".pageControls .nextBtn");
+
+  if (prevBtn) prevBtn.disabled = encyclopediaPage === 1;
+  if (nextBtn) nextBtn.disabled = encyclopediaPage === totalPages;
+}
+
+// 前のページ
+function prevFlagPage() {
+  if (encyclopediaPage > 1) {
+    encyclopediaPage--;
+    renderFlagPage();
+  }
+}
+
+// 次のページ
+function nextFlagPage() {
+  const totalPages = Math.ceil(encyclopediaFilteredCountries.length / encyclopediaPageSize);
+  if (encyclopediaPage < totalPages) {
+    encyclopediaPage++;
+    renderFlagPage();
+  }
+}
+
+// 詳細画面表示
+function showCountryDetail(country) {
+  hideAllScreens();
+  document.getElementById("countryDetailScreen").style.display = "block";
+
+  document.getElementById("detailFlag").src = "flags/" + country.code + ".png";
+  document.getElementById("detailFlag").alt = country.jp;
+  document.getElementById("detailNameJp").textContent = country.jp;
+  document.getElementById("detailNameEn").textContent = "英語名 / EN: " + country.en;
+
+  const continentLabels = {
+    asia: "大陸 / Continent: アジア / Asia",
+    europe: "大陸 / Continent: ヨーロッパ / Europe",
+    africa: "大陸 / Continent: アフリカ / Africa",
+    northamerica: "大陸 / Continent: 北アメリカ / North America",
+    southamerica: "大陸 / Continent: 南アメリカ / South America",
+    oceania: "大陸 / Continent: オセアニア / Oceania"
+  };
+
+  document.getElementById("detailContinent").textContent =
+    continentLabels[country.continent] || "";
+
+  const extraInfo = document.getElementById("detailExtraInfo");
+  extraInfo.innerHTML = `
+    ${country.capital ? `<div class="detailRow"><span class="detailLabel">首都 / Capital:</span> ${country.capital}</div>` : ""}
+    ${country.population ? `<div class="detailRow"><span class="detailLabel">人口 / Pop. :</span> ${country.population}</div>` : ""}
+    ${country.landarea ? `<div class="detailRow"><span class="detailLabel">面積 / land area:</span> ${country.landarea}</div>` : ""}
+    ${country.currency ? `<div class="detailRow"><span class="detailLabel">通貨 / currency:</span> ${country.currency}</div>` : ""}
+    ${country.language ? `<div class="detailRow"><span class="detailLabel">言語 / language:</span> ${country.language}</div>` : ""}
+  `;
+
+  document.getElementById("detailBackBtn").onclick = function() {
+    hideAllScreens();
+    document.getElementById("flagListScreen").style.display = "block";
+    renderFlagPage();
+  };
+}
+
 
 updateHighScore();
 nextQuestion();
