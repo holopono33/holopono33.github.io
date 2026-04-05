@@ -19,23 +19,9 @@ body{
 
 /* ===== 共通カード（ホーム＆ゲーム） ===== */
 
-/*.app{
-  background:white;
-  width:95%;
-  max-width:420px;
-  padding:18px 16px;
-  border-radius:25px;
-  box-shadow:0 15px 30px rgba(0,0,0,0.2);
-  text-align:center;
-  margin:0 auto;
-  animation:fadeIn .3s ease;
-  max-height:96dvh;
-
-  }*/
-
   .app{
   background:white;
-  width:95%;
+  width:100%;
   max-width:420px;
   padding:14px 16px 16px;
   border-radius:25px;
@@ -737,7 +723,7 @@ input{
   color:#333;
    margin:4px 0;
   text-align:center;
-  line-height:1.35;
+  line-height:1.3;
 }
 
 #countryDetailScreen .app{
@@ -788,14 +774,14 @@ input{
   text-align:left;
   font-size:13px;
   color:#333;
-  line-height:1.45;
+  line-height:1.3;
 }
 
 .detailRow{
   display:flex;
   align-items:flex-start;
   gap:8px;
-  margin:6px 0;
+  margin:4px 0;
   padding:6px 10px;
   border-radius:10px;
   background:rgba(255,255,255,0.45);
@@ -810,7 +796,7 @@ input{
 .detailValue{
   flex:1;
   min-width:0;
-  line-height:1.5;
+  line-height:1.3;
   word-break:break-word;
 }
 
