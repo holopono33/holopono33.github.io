@@ -18,8 +18,8 @@ body{
 }
 
 /* ===== 共通カード（ホーム＆ゲーム） ===== */
-#homeScreen,
-.app{
+
+/*.app{
   background:white;
   width:95%;
   max-width:420px;
@@ -30,7 +30,26 @@ body{
   margin:0 auto;
   animation:fadeIn .3s ease;
   max-height:96dvh;
-  }
+
+  }*/
+
+  .app{
+  background:white;
+  width:95%;
+  max-width:420px;
+  padding:14px 16px 16px;
+  border-radius:25px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+  text-align:center;
+  margin:0 auto;
+  animation:fadeIn .3s ease;
+  max-height:96dvh;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
 
 /* ===== フェードアニメーション ===== */
 @keyframes fadeIn{
@@ -46,7 +65,7 @@ body{
 
 /* ===== タイトル ===== */
 h1{
-  margin:0 0 18px 0;
+  margin:0 0 13px 0;
 }
 
 #homeScreen h1{
@@ -58,14 +77,13 @@ h1{
    ホーム画面
 ========================= */
 #homeScreen{
-  display:flex;
-  flex-direction:column;
+  width:100%;
 }
 
 #homeScreen .menuGroup{
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:8px;
 }
 
 /* ホーム画面のボタンだけに適用 */
@@ -143,8 +161,8 @@ h1{
 
 /* 1分チャレンジ記録 */
 #homeScreen .timeResultBox{
-  margin-top:14px;
-  padding:12px 12px;
+  margin-top:10px;
+  padding:10px 12px;
   border-radius:16px;
   background:#f7eed0;
   text-align:center;
@@ -152,14 +170,14 @@ h1{
 }
 
 #homeScreen .timeResultBox h3{
-  margin:0 0 8px 0;
-  font-size:15px;
-  line-height:1.3;
+  margin:0 0 6px 0;
+  font-size:14px;
+  line-height:1.25;
 }
 
 #homeScreen .timeResultBox p{
   margin:5px 0;
-  font-size:13px;
+  font-size:12px;
   line-height:1.3;
 }
 
@@ -167,7 +185,7 @@ h1{
    ゲーム画面
 ========================= */
 #gameScreen{
-  width:100%;
+   width:100%;
 }
 
 #gameScreen .app{
@@ -497,21 +515,6 @@ input{
   text-align:center;
 }
 
-#continentScreen .app,
-#flagListScreen .app,
-#countryDetailScreen .app{
-  background:white;
-  width:95%;
-  max-width:420px;
-  padding:18px 16px;
-  border-radius:25px;
-  box-shadow:0 15px 30px rgba(0,0,0,0.2);
-  text-align:center;
-  margin:0 auto;
-  animation:fadeIn .3s ease;
-  max-height:96dvh;
-  box-sizing:border-box;
-}
 
 /* =========================
    戻るボタン 最終統一版
@@ -520,7 +523,7 @@ input{
 #continentScreen .backBtn,
 #flagListScreen .backBtn,
 #countryDetailScreen .backBtn{
-  width:85%;
+  width:88%;
   display:block;
   margin:22px auto 0;
   padding:12px;
@@ -724,28 +727,31 @@ input{
 }
 
 .mainName{
-  font-size:20px;
+  font-size:18px;
   font-weight:bold;
-  margin:10px 0 12px;
+  margin:8px 0 8px;
 }
 
 .subName{
   font-size:15px;
   color:#333;
-  margin:6px 0;
+   margin:4px 0;
   text-align:center;
-  line-height:1.5;
+  line-height:1.35;
 }
 
 #countryDetailScreen .app{
-  padding:14px 14px;
+  padding:12px 12px 14px;
+  gap:6px;
+  justify-content:flex-start;
+  overflow:hidden;
 }
 
 #detailModeTitle{
-  font-size:16px;
+  font-size:15px;
   font-weight:700;
-  margin:0 auto 12px;
-  padding:6px 14px;
+  margin:0 auto 8px;
+  padding:5px 12px;
   display:inline-block;
   background:linear-gradient(90deg,#4e73df,#1cc88a);
   color:white;
@@ -778,14 +784,17 @@ input{
 
 
 .detailExtraInfo{
-  margin-top:14px;
+  margin-top:10px;
   text-align:left;
-  font-size:14px;
+  font-size:13px;
   color:#333;
-  line-height:1.6;
+  line-height:1.45;
 }
 
 .detailRow{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
   margin:6px 0;
   padding:6px 10px;
   border-radius:10px;
@@ -793,19 +802,20 @@ input{
 }
 
 .detailLabel{
+  min-width:100px;
+  flex-shrink:0;
   font-weight:600;
   color:#111;
-  display:inline-block;
-  min-width:118px;
 }
-
-.app{
-  display:flex;
-  flex-direction:column;
+.detailValue{
+  flex:1;
+  min-width:0;
+  line-height:1.5;
+  word-break:break-word;
 }
 
 #continentScreen .backBtn{
-  width:85%;
+  width:88%;
   margin:22px auto 0;
   padding:12px 18px;
   border:none;

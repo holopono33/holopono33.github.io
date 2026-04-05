@@ -659,11 +659,11 @@ function showCountryDetail(country) {
 
   const extraInfo = document.getElementById("detailExtraInfo");
   extraInfo.innerHTML = `
-    ${country.capital ? `<div class="detailRow"><span class="detailLabel">首都 / Capital:</span> ${country.capital}</div>` : ""}
-    ${country.population ? `<div class="detailRow"><span class="detailLabel">人口 / Pop. :</span> ${country.population}</div>` : ""}
-    ${country.landarea ? `<div class="detailRow"><span class="detailLabel">面積 / land area:</span> ${country.landarea}</div>` : ""}
-    ${country.currency ? `<div class="detailRow"><span class="detailLabel">通貨 / currency:</span> ${country.currency}</div>` : ""}
-    ${country.language ? `<div class="detailRow"><span class="detailLabel">言語 / language:</span> ${country.language}</div>` : ""}
+    ${country.capital ? `<div class="detailRow"><span class="detailLabel">首都 / Capital:</span><span class="detailValue">${country.capital}</span></div>` : ""}
+  ${country.population ? `<div class="detailRow"><span class="detailLabel">人口 / Pop. :</span><span class="detailValue">${country.population}</span></div>` : ""}
+  ${country.landarea ? `<div class="detailRow"><span class="detailLabel">面積 / land area:</span><span class="detailValue">${country.landarea}</span></div>` : ""}
+  ${country.currency ? `<div class="detailRow"><span class="detailLabel">通貨 / currency:</span><span class="detailValue">${country.currency}</span></div>` : ""}
+  ${country.language ? `<div class="detailRow"><span class="detailLabel">言語 / language:</span><span class="detailValue">${country.language}</span></div>` : ""}
   `;
 
   document.getElementById("detailBackBtn").onclick = function() {
