@@ -489,10 +489,10 @@ input{
    図鑑モード 共通
 ========================= */
 
-.screen{
+/*.screen{
   padding:20px;
   text-align:center;
-}
+}*/
 
 #continentScreen,
 #flagListScreen,
