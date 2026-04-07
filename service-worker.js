@@ -1,10 +1,14 @@
-const CACHE_NAME = "flag-quiz-v17-20260319";
+const CACHE_NAME = "flag-quiz-v18-20260407";
 
 const urlsToCache = [
   "./",
   "./index.html",
   "./main.js",
+  "./style.css",
+  "./data.js",
   "./manifest.json",
+  "./offline.html",
+  "./privacy.html",
   "./icon-192.png",
   "./icon-512.png"
 ];
