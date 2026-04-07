@@ -27,7 +27,7 @@ body{
   border-radius:25px;
   box-shadow:0 15px 30px rgba(0,0,0,0.2);
   text-align:center;
-  margin:0 auto;
+  margin:4 auto;
   animation:fadeIn .3s ease;
   max-height:96dvh;
   box-sizing:border-box;
