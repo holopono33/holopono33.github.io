@@ -205,9 +205,9 @@ aliases:["中華人民共和国","ちゅうごく","ちゅうかじんみんき�
  code:"jp", 
  continent:"asia",
  capital:" 東京 / Tokyo",
- population:" 約1.2億人 / about 120 million",
- landarea:" 約377,975km² (Ranking:61位)",
- currency:" 円 / Yen",
+ population:" 約1.2億人 / ~120M",
+ landarea:" ~378K km² (Rank:#61)",
+ currency:" 円 / JPY(¥)",
  language:" 日本語 / Japanese",
  aliases:["にほん","にっぽん","ニホン","ニッポン"]
 },
