@@ -75,7 +75,7 @@ h1{
 /* ホーム画面のボタンだけに適用 */
 #homeScreen button{
   width:100%;
-  padding:9px 10px;
+  padding:9px 8px;
   min-height:72px;
   border:none;
   border-radius:14px;
@@ -89,6 +89,15 @@ h1{
   line-height:1.2;
   margin:0;
   font-size:16px;
+}
+
+@media (max-width: 400px) {
+  #homeScreen button{
+    padding:7px 4px;        /* ← さらに詰める */
+    min-height:64px;
+    font-size:14px;
+    line-height:1.05;
+  }
 }
 
 #homeScreen button:hover{

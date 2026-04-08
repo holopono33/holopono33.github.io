@@ -193,14 +193,36 @@ r.textContent=t;
 r.style.color=color;
 }
 
+function resetTimeAttackState() {
+  clearInterval(timeAttackTimer);
+  timeAttackTimer = null;
+
+  isTimeAttack = false;
+  totalTime = 60;
+  paused = false;
+
+  const timeEl = document.getElementById("time");
+  if (timeEl) {
+    timeEl.textContent = 10; // 通常モードの表示に戻す
+  }
+
+  const btn = document.getElementById("pauseBtn");
+  if (btn) {
+    btn.textContent = "⏸ 停止 / Pause";
+    btn.classList.remove("resumeMode");
+  }
+}
+
 function togglePause() {
   paused = !paused;
 
   const btn = document.getElementById("pauseBtn");
+  if (!btn) return;
 
   if (paused) {
     clearInterval(timer);
     clearInterval(timeAttackTimer);
+    timeAttackTimer = null;
 
     btn.textContent = "▶ 再開 / Resume";
     btn.classList.add("resumeMode");
@@ -233,28 +255,52 @@ function showGameScreen() {
 }
 
 function goHome() {
+  clearInterval(timer);
+  resetTimeAttackState();
   document.getElementById("homeScreen").style.display = "block";
   document.getElementById("gameScreen").style.display = "none";
 }
 
 function startNormal() {
+  clearInterval(timer);
+  resetTimeAttackState();
+
   gameMode = "normal";
+  timeLeft = 10;
+  score = 0;
+  combo = 0;
+  paused = false;
+
   document.getElementById("modeTitle").innerText = "通常モード/Normal mode";
   showGameScreen();
   nextQuestion();
 }
 
 function startContinent() {
+  clearInterval(timer);
+  resetTimeAttackState();
+
   gameMode = "continent";
+  timeLeft = 10;
+  score = 0;
+  combo = 0;
+  paused = false;
+
   document.getElementById("modeTitle").innerText = "大陸別モード/Continent mode";
   showGameScreen();
   nextQuestion();
 }
 
-
-
 function startReview() {
+   clearInterval(timer);
+  resetTimeAttackState();
+
   gameMode = "review";
+  timeLeft = 10;
+  score = 0;
+  combo = 0;
+  paused = false;
+
   document.getElementById("modeTitle").innerText = "復習モード/Review mode";
   showGameScreen();
   nextQuestion();
@@ -290,7 +336,9 @@ function startContinentFromSelect() {
 }
 
 function startTimeAttack() {
-  clearInterval(timer); // 10秒タイマーを完全停止
+  clearInterval(timer);
+  clearInterval(timeAttackTimer);
+  timeAttackTimer = null;
 
   gameMode = "timeAttack";
   isTimeAttack = true;
@@ -299,16 +347,19 @@ function startTimeAttack() {
   combo = 0;
   paused = false;
 
-  document.getElementById("modeTitle").innerText = "🔥 1分チャレンジ/1-minute challenge";
+  document.getElementById("modeTitle").innerText = "🔥 1分チャレンジ/1-Min challenge";
   showGameScreen();
 
   document.getElementById("score").textContent = 0;
   document.getElementById("currentScore").textContent = 0;
   document.getElementById("timeAttackResult").classList.remove("newRecord");
+  document.getElementById("time").textContent = totalTime;
 
   const btn = document.getElementById("pauseBtn");
-  btn.textContent = "⏸ 停止 / Pause";
-  btn.classList.remove("resumeMode");
+  if (btn) {
+    btn.textContent = "⏸ 停止 / Pause";
+    btn.classList.remove("resumeMode");
+  }
 
   startTimeAttackTimer();
   nextQuestion();
@@ -318,35 +369,27 @@ function startTimeAttack() {
 function startTimeAttackTimer(){
 
   clearInterval(timeAttackTimer);
+  timeAttackTimer = null;
 
   document.getElementById("time").textContent = totalTime;
 
   timeAttackTimer = setInterval(() => {
+    if (paused) return;
 
     totalTime--;
 
-    if(totalTime <= 0){
+    if (totalTime <= 0) {
       totalTime = 0;
       document.getElementById("time").textContent = 0;
 
       clearInterval(timeAttackTimer);
+      timeAttackTimer = null;
       endTimeAttack();
       return;
     }
 
     document.getElementById("time").textContent = totalTime;
-
   }, 1000);
-}
-
-
-function endTimeAttack(){
-  clearInterval(timer); // 1問タイマー止める
-  isTimeAttack = false;
-  clearInterval(timeAttackTimer);
-  alert("終了！スコア: " + score);
-
-  goHome();
 }
 
 function getRank(score){
@@ -359,31 +402,28 @@ function getRank(score){
 function endTimeAttack(){
   clearInterval(timer);
   clearInterval(timeAttackTimer);
-  isTimeAttack = false;
+  timeAttackTimer = null;
 
-  // ★ これ追加（今回スコア表示）
+  isTimeAttack = false;
+  paused = false;
+ // ★ これ追加（今回スコア表示）
   document.getElementById("currentScore").textContent = score;
 
-  let best = localStorage.getItem("taHighScore") || 0;
+  let best = Number(localStorage.getItem("taHighScore") || 0);
 
-  if(score > best){
+  if (score > best) {
     localStorage.setItem("taHighScore", score);
-    document.getElementById("timeAttackResult")
-      .classList.add("newRecord");
-
-    // ★ 初めてハイスコアを更新したときだけレビュー依頼を出す
-  if (!localStorage.getItem("review_shown")) {
-    navigator.store?.requestStoreReview();
-    localStorage.setItem("review_shown", "1");
-  }
-  
+    document.getElementById("timeAttackResult").classList.add("newRecord");
+ // ★ 初めてハイスコアを更新したときだけレビュー依頼を出す
+    if (!localStorage.getItem("review_shown")) {
+      navigator.store?.requestStoreReview();
+      localStorage.setItem("review_shown", "1");
+    }
   }
 
   updateTimeAttackDisplay();
   goHome();
 }
-
-
 
 function updateTimeAttackDisplay(){
   let best = localStorage.getItem("taHighScore") || 0;
