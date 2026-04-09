@@ -91,6 +91,15 @@ h1{
   font-size:16px;
 }
 
+@media (max-width: 400px) {
+  .android-device #homeScreen .mode-title{
+    font-size:15px;   /* 少しだけ小さく */
+     }
+  .android-device #homeScreen .mode-subtext{
+    font-size:12px;   /* サブ文字さらに小さく */
+      }
+}
+
 #homeScreen button:hover{
   transform:translateY(-2px);
   opacity:0.9;

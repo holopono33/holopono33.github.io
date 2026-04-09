@@ -719,3 +719,11 @@ nextQuestion();
 updateTimeAttackDisplay();
 
 
+// =========================
+// Android判定（最後に追加）
+// =========================
+window.addEventListener("DOMContentLoaded", () => {
+  if (/Android/i.test(navigator.userAgent)) {
+    document.body.classList.add("android-device");
+  }
+});
