@@ -749,6 +749,33 @@ function showCountryDetail(country) {
       : "👉 国旗をタップして首都を表示";
   };
 
+  // =========================
+  // iPhoneでもタップ縮小が見えるようにする
+  // =========================
+  flagWrap.ontouchstart = function () {
+    flagWrap.classList.add("tapActive");
+  };
+
+  flagWrap.ontouchend = function () {
+    flagWrap.classList.remove("tapActive");
+  };
+
+  flagWrap.ontouchcancel = function () {
+    flagWrap.classList.remove("tapActive");
+  };
+
+  flagWrap.onmousedown = function () {
+    flagWrap.classList.add("tapActive");
+  };
+
+  flagWrap.onmouseup = function () {
+    flagWrap.classList.remove("tapActive");
+  };
+
+  flagWrap.onmouseleave = function () {
+    flagWrap.classList.remove("tapActive");
+  };
+
   document.getElementById("detailBackBtn").onclick = function () {
     hideAllScreens();
     document.getElementById("flagListScreen").style.display = "block";

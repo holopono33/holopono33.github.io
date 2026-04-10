@@ -723,17 +723,17 @@ input{
 }
 
 .mainName{
-  font-size:18px;
+  font-size:19px;
   font-weight:bold;
   margin:8px 0 8px;
 }
 
 .subName{
-  font-size:16px;
+  font-size:17px;
   color:#333;
    margin:4px 0;
   text-align:center;
-  line-height:1.3;
+  line-height:1.2;
 }
 
 #countryDetailScreen .app{
@@ -744,7 +744,7 @@ input{
 }
 
 #detailModeTitle{
-  font-size:18px;
+  font-size:20px;
   font-weight:700;
   margin:0 auto 8px;
   padding:5px 12px;
@@ -770,12 +770,13 @@ input{
   cursor:pointer;
   position:relative;
   z-index:1;
-  transition:transform 0.12s ease;
+  transition:transform 0.12s ease, box-shadow 0.12s ease;
   -webkit-tap-highlight-color:transparent;
 }
 
-#countryDetailScreen .flagWrap:active{
+#countryDetailScreen .flagWrap.tapActive{
   transform:scale(0.97);
+  box-shadow:0 3px 8px rgba(0,0,0,0.18);
 }
 
 #detailFlag{
@@ -789,8 +790,6 @@ input{
   pointer-events:auto;
 }
 
-
-
 #capitalValue{
   font-weight:bold;
   color:#2563eb;
@@ -800,9 +799,9 @@ input{
 .detailExtraInfo{
   margin-top:10px;
   text-align:left;
-  font-size:13px;
+  font-size:15px;
   color:#333;
-  line-height:1.3;
+  line-height:1.2;
 }
 
 .detailRow{
@@ -827,7 +826,7 @@ input{
 .detailValue{
   flex:1;
   min-width:0;
-  line-height:1.3;
+  line-height:1.2;
   word-break:break-word;
 }
 
