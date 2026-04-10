@@ -496,7 +496,8 @@ function launchConfetti(level = 1){　　//紙吹雪
   canvas.height = window.innerHeight;
 
   let pieces = [];
-  let amount = level === 1 ? 60 : 200;
+  // 👇 ここが重要（増加＋上限）
+  let amount = Math.min(100 + (level * 50), 300);
   let animationId;
   let start = Date.now();
 
@@ -522,7 +523,7 @@ function launchConfetti(level = 1){　　//紙吹雪
     });
 
     // ★ 1.5秒で強制停止
-    if(Date.now() - start < 1500){
+    if(Date.now() - start < 1800){
       animationId = requestAnimationFrame(draw);
     }else{
       cancelAnimationFrame(animationId);
@@ -675,15 +676,12 @@ function nextFlagPage() {
   }
 }
 
-// 詳細画面表示
+// =========================
+// 国詳細表示
+// =========================
 function showCountryDetail(country) {
   hideAllScreens();
   document.getElementById("countryDetailScreen").style.display = "block";
-
-  document.getElementById("detailFlag").src = "flags/" + country.code + ".png";
-  document.getElementById("detailFlag").alt = country.jp;
-  document.getElementById("detailNameJp").textContent = country.jp;
-  document.getElementById("detailNameEn").textContent = "英語名 / EN: " + country.en;
 
   const continentLabels = {
     asia: "大陸 / Continent: アジア / Asia",
@@ -694,30 +692,73 @@ function showCountryDetail(country) {
     oceania: "大陸 / Continent: オセアニア / Oceania"
   };
 
+  document.getElementById("detailFlag").src = "flags/" + country.code + ".png";
+  document.getElementById("detailFlag").alt = country.jp;
+  document.getElementById("detailNameJp").textContent = country.jp;
+  document.getElementById("detailNameEn").textContent = "英語名 / EN: " + country.en;
   document.getElementById("detailContinent").textContent =
     continentLabels[country.continent] || "";
 
+  let capitalVisible = false;
+
   const extraInfo = document.getElementById("detailExtraInfo");
   extraInfo.innerHTML = `
-  ${country.capital ? `<div class="detailRow"><span class="detailLabel"><span class="icon">🏙</span>首都 / Cap:</span><span class="detailValue">${country.capital}</span></div>` : ""}
-${country.population ? `<div class="detailRow"><span class="detailLabel"><span class="icon">👥</span>人口 / Pop:</span><span class="detailValue">${country.population}</span></div>` : ""}
-${country.landarea ? `<div class="detailRow"><span class="detailLabel"><span class="icon">🌍</span>面積 / Area:</span><span class="detailValue">${country.landarea}</span></div>` : ""}
-${country.currency ? `<div class="detailRow"><span class="detailLabel"><span class="icon">💰</span>通貨 / Curr:</span><span class="detailValue">${country.currency}</span></div>` : ""}
-${country.language ? `<div class="detailRow"><span class="detailLabel"><span class="icon">🗣</span>言語 / Lang:</span><span class="detailValue">${country.language}</span></div>` : ""}
+    ${country.capital ? `
+      <div class="detailRow">
+        <span class="detailLabel"><span class="icon">🏙️</span>首都 / Cap:</span>
+        <span class="detailValue" id="capitalValue">👉 国旗をタップして首都を表示</span>
+      </div>
+    ` : ""}
+    ${country.population ? `
+      <div class="detailRow">
+        <span class="detailLabel"><span class="icon">👥</span>人口 / Pop:</span>
+        <span class="detailValue">${country.population}</span>
+      </div>
+    ` : ""}
+    ${country.landarea ? `
+      <div class="detailRow">
+        <span class="detailLabel"><span class="icon">🌍</span>面積 / Area:</span>
+        <span class="detailValue">${country.landarea}</span>
+      </div>
+    ` : ""}
+    ${country.currency ? `
+      <div class="detailRow">
+        <span class="detailLabel"><span class="icon">💰</span>通貨 / Curr:</span>
+        <span class="detailValue">${country.currency}</span>
+      </div>
+    ` : ""}
+    ${country.language ? `
+      <div class="detailRow">
+        <span class="detailLabel"><span class="icon">🗣️</span>言語 / Lang:</span>
+        <span class="detailValue">${country.language}</span>
+      </div>
+    ` : ""}
   `;
 
-  document.getElementById("detailBackBtn").onclick = function() {
+  // =========================
+  // 国旗クリックで表示ON/OFF
+  // =========================
+  const flagWrap = document.querySelector("#countryDetailScreen .flagWrap");
+  flagWrap.onclick = function () {
+    const capitalEl = document.getElementById("capitalValue");
+    if (!capitalEl) return;
+
+    capitalVisible = !capitalVisible;
+    capitalEl.textContent = capitalVisible
+      ? country.capital
+      : "👉 国旗をタップして首都を表示";
+  };
+
+  document.getElementById("detailBackBtn").onclick = function () {
     hideAllScreens();
     document.getElementById("flagListScreen").style.display = "block";
     renderFlagPage();
   };
 }
 
-
 updateHighScore();
 nextQuestion();
 updateTimeAttackDisplay();
-
 
 // =========================
 // Android判定（最後に追加）

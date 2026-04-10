@@ -93,10 +93,10 @@ h1{
 
 @media (max-width: 400px) {
   .android-device #homeScreen .mode-title{
-    font-size:15px;   /* 少しだけ小さく */
+    font-size:17px;   /* 少しだけ小さく */
      }
   .android-device #homeScreen .mode-subtext{
-    font-size:12px;   /* サブ文字さらに小さく */
+    font-size:13px;   /* サブ文字さらに小さく */
       }
 }
 
@@ -767,6 +767,9 @@ input{
   align-items:center;
   justify-content:center;
   overflow:hidden;
+  cursor:pointer;
+  position:relative;
+  z-index:1;
 }
 
 #detailFlag{
@@ -776,8 +779,19 @@ input{
   object-position:center center;
   display:block;
   border-radius:12px;
+  cursor:pointer;
+  pointer-events:auto;
 }
 
+.flagWrap:active{
+  transform:scale(0.97);
+}
+
+#capitalValue{
+  font-weight:bold;
+  color:#2563eb;
+  transition:0.2s;
+}
 
 .detailExtraInfo{
   margin-top:10px;
@@ -789,7 +803,7 @@ input{
 
 .detailRow{
   display:flex;
-  align-items:flex-start;
+  align-items:center;
   gap:8px;
   margin:4px 0;
   padding:6px 10px;
