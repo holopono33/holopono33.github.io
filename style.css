@@ -770,6 +770,12 @@ input{
   cursor:pointer;
   position:relative;
   z-index:1;
+  transition:transform 0.12s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+
+#countryDetailScreen .flagWrap:active{
+  transform:scale(0.97);
 }
 
 #detailFlag{
@@ -783,9 +789,7 @@ input{
   pointer-events:auto;
 }
 
-.flagWrap:active{
-  transform:scale(0.97);
-}
+
 
 #capitalValue{
   font-weight:bold;
