@@ -706,7 +706,7 @@ function showCountryDetail(country) {
     ${country.capital ? `
       <div class="detailRow">
         <span class="detailLabel"><span class="icon">🏙️</span>首都 / Cap:</span>
-        <span class="detailValue" id="capitalValue">👉 国旗をタップして首都を表示</span>
+        <span class="detailValue" id="capitalValue">👉タップで表示/Tap to show</span>
       </div>
     ` : ""}
     ${country.population ? `
