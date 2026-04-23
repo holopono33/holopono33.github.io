@@ -592,7 +592,7 @@ function openEncyclopedia() {
 
 // 購入案内
 function showPurchaseDialog() {
-  const ok = confirm("図鑑モードは有料です。購入しますか？");
+  const ok = confirm("図鑑モードは有料です。購入しますか?/Encyclopedia Mode is paid. Purchase?");
   if (ok) {
     startPurchase();
   }
@@ -618,13 +618,13 @@ function startPurchase() {
 function unlockEncyclopedia() {
   isEncyclopediaUnlocked = true;
   localStorage.setItem("encyclopediaUnlocked", "true");
-  alert("図鑑モードが解放されました");
+  alert("図鑑モードが解放されました/Mode unlocked.");
   showContinentScreen();
 }
 function resetEncyclopediaPurchase() {
   localStorage.removeItem("encyclopediaUnlocked");
   isEncyclopediaUnlocked = false;
-  alert("図鑑課金状態をリセットしました");
+  alert("図鑑課金状態をリセットしました/mode reset.");
 }
 /* =========================
    図鑑モード
