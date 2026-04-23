@@ -575,8 +575,9 @@ if ("serviceWorker" in navigator) {
   setTimeout(hideLoading, 1500);
 })();
 
-
+/* =========================
 // 図鑑モード解放画面
+========================= */
 
 let isEncyclopediaUnlocked = false;
 
@@ -597,7 +598,7 @@ function openEncyclopedia() {
 
 // 購入案内
 function showPurchaseDialog() {
-  const ok = confirm("図鑑モードは有料です。購入しますか?/Encyclopedia Mode is paid. Purchase?");
+  const ok = confirm("図鑑モードは有料です。購入しますか？/Encyclopedia Mode is paid. Purchase?");
   if (ok) {
     startPurchase();
   }
@@ -605,7 +606,6 @@ function showPurchaseDialog() {
 
 // あとでiPhone / Android課金をつなぐ場所
 async function startPurchase() {
-
   // Android
   if (window.Android) {
     window.Android.purchaseItem("encyclopedia_unlock");
@@ -617,7 +617,7 @@ async function startPurchase() {
       await PurchasePlugin.purchase();
       unlockEncyclopedia();
     } catch (e) {
-      alert("購入に失敗しました");
+      alert("購入に失敗しました/Purchase failed.");
       console.error(e);
     }
   }
@@ -638,21 +638,22 @@ async function restoreEncyclopediaPurchase() {
     }
   }
 
-  else if (PurchasePlugin) {
+  else if (window.Capacitor) {
     try {
       await PurchasePlugin.restore();
       unlockEncyclopedia();
-      alert("購入を復元しました");
+      alert("購入を復元しました/Purchase restored.");
     } catch (e) {
-      alert("復元できませんでした");
+      alert("復元できませんでした/Failed to restore purchase.");
       console.error(e);
     }
   }
 
   else {
-    alert("この環境では復元できません");
+    alert("この環境では復元できません/Restoration is not available in this environment.");
   }
 }
+
 // 購入完了後に呼ぶ
 function unlockEncyclopedia() {
   isEncyclopediaUnlocked = true;
@@ -660,12 +661,14 @@ function unlockEncyclopedia() {
   alert("図鑑モードが解放されました/Mode unlocked.");
   showContinentScreen();
 }
-// デバック用（本番使用しない）
+
+// デバッグ用（本番使用しない）
 function resetEncyclopediaPurchase() {
   localStorage.removeItem("encyclopediaUnlocked");
   isEncyclopediaUnlocked = false;
   alert("図鑑課金状態をリセットしました/mode reset.");
 }
+
 /* =========================
    図鑑モード
 ========================= */
