@@ -660,6 +660,7 @@ function unlockEncyclopedia() {
   alert("図鑑モードが解放されました/Mode unlocked.");
   showContinentScreen();
 }
+// デバック用（本番使用しない）
 function resetEncyclopediaPurchase() {
   localStorage.removeItem("encyclopediaUnlocked");
   isEncyclopediaUnlocked = false;
