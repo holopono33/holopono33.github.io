@@ -24,6 +24,11 @@ let timeAttackTimer;
 
 function normalize(t){ return t.trim().toLowerCase(); }
 
+// 👇ここに追加
+const PurchasePlugin = window.Capacitor?.registerPlugin
+  ? window.Capacitor.registerPlugin("PurchasePlugin")
+  : null;
+
 function toHiragana(str){
   return str.replace(/[\u30a1-\u30f6]/g, function(match){
     return String.fromCharCode(match.charCodeAt(0) - 0x60);
@@ -599,19 +604,53 @@ function showPurchaseDialog() {
 }
 
 // あとでiPhone / Android課金をつなぐ場所
-function startPurchase() {
+async function startPurchase() {
+
   // Android
   if (window.Android) {
     window.Android.purchaseItem("encyclopedia_unlock");
   }
-  // iPhone
-  else if (window.webkit && window.webkit.messageHandlers.purchase) {
-    window.webkit.messageHandlers.purchase.postMessage("encyclopedia_unlock");
+
+  // iPhone（Capacitor）
+  else if (window.Capacitor) {
+    try {
+      await PurchasePlugin.purchase();
+      unlockEncyclopedia();
+    } catch (e) {
+      alert("購入に失敗しました");
+      console.error(e);
+    }
   }
-  // テスト用（PC）
+
+  // テスト（PC）
   else {
     const ok = confirm("テスト購入しますか？");
     if (ok) unlockEncyclopedia();
+  }
+}
+
+async function restoreEncyclopediaPurchase() {
+  if (window.Android) {
+    if (window.Android.restorePurchase) {
+      window.Android.restorePurchase("encyclopedia_unlock");
+    } else {
+      alert("このAndroid版では復元がまだ未対応です");
+    }
+  }
+
+  else if (PurchasePlugin) {
+    try {
+      await PurchasePlugin.restore();
+      unlockEncyclopedia();
+      alert("購入を復元しました");
+    } catch (e) {
+      alert("復元できませんでした");
+      console.error(e);
+    }
+  }
+
+  else {
+    alert("この環境では復元できません");
   }
 }
 // 購入完了後に呼ぶ

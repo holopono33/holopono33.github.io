@@ -152,6 +152,27 @@ h1{
   background:white;
   margin:0;
 }
+/* 復元ボタン */
+#homeScreen button.restoreBtn{
+  min-height:auto;   /* ←これが重要🔥 */
+  padding:8px 10px;
+  font-size:13px;
+  background:#e5e7eb;
+  color:#666;
+}
+
+.restoreArea{
+  width:88%;
+  margin:10px auto 0;   /* ← 少し詰める */
+  text-align:center;
+}
+
+.restoreNote{
+  font-size:11px;       /* ← 少し小さく */
+  color:#777;
+  line-height:1.3;      /* ← 行間詰める */
+  margin-bottom:6px;    /* ← 下余白少し減らす */
+}
 
 
 /* 1分チャレンジ記録 */
