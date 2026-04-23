@@ -34,8 +34,10 @@ function updateUI(){
 document.getElementById("score").textContent=score;
 document.getElementById("combo").textContent=combo;
 document.getElementById("reviewCount").textContent=wrongList.length;
-document.getElementById("accuracy").textContent=
-totalAnswers?Math.floor(score/totalAnswers*100):0;
+document.getElementById("accuracy").textContent =
+  totalAnswers
+    ? `${Math.floor(score / totalAnswers * 100)}%（${totalAnswers}問中${score}問正解）`
+    : "0%";
 updateHighScore();
 }
 
@@ -174,6 +176,7 @@ function skipQuestion(timeup=false){
 if(!isTimeAttack){
 clearInterval(timer);
 }
+totalAnswers++; // ← ★これ追加（重要）
 combo=0;
 addWrong();
 show("× 正解: " + current.jp + " / " + current.en, "red");
@@ -269,10 +272,12 @@ function startNormal() {
   timeLeft = 10;
   score = 0;
   combo = 0;
+  totalAnswers = 0; // ← ★これ追加
   paused = false;
 
   document.getElementById("modeTitle").innerText = "通常モード/Normal mode";
   showGameScreen();
+  updateUI(); // ← ★これ追加（超重要）
   nextQuestion();
 }
 
@@ -284,10 +289,12 @@ function startContinent() {
   timeLeft = 10;
   score = 0;
   combo = 0;
+  totalAnswers = 0; // ← ★これ追加
   paused = false;
 
   document.getElementById("modeTitle").innerText = "大陸別モード/Continent mode";
   showGameScreen();
+  updateUI(); // ← ★これ追加（超重要）
   nextQuestion();
 }
 
@@ -299,10 +306,12 @@ function startReview() {
   timeLeft = 10;
   score = 0;
   combo = 0;
+  totalAnswers = 0; // ← ★これ追加
   paused = false;
 
   document.getElementById("modeTitle").innerText = "復習モード/Review mode";
   showGameScreen();
+  updateUI(); // ← ★これ追加（超重要）
   nextQuestion();
 }
 
@@ -345,10 +354,13 @@ function startTimeAttack() {
   totalTime = 60;
   score = 0;
   combo = 0;
+  totalAnswers = 0; // ← ★これ追加（超重要）
   paused = false;
 
   document.getElementById("modeTitle").innerText = "🔥 1分チャレンジ/1-Min challenge";
   showGameScreen();
+
+  updateUI();// ← ★これ追加
 
   document.getElementById("score").textContent = 0;
   document.getElementById("currentScore").textContent = 0;
@@ -558,6 +570,62 @@ if ("serviceWorker" in navigator) {
   setTimeout(hideLoading, 1500);
 })();
 
+
+// 図鑑モード解放画面
+
+let isEncyclopediaUnlocked = false;
+
+// 起動時に購入状態を復元
+window.addEventListener("load", () => {
+  isEncyclopediaUnlocked =
+    localStorage.getItem("encyclopediaUnlocked") === "true";
+});
+
+// 図鑑モードを開く入口
+function openEncyclopedia() {
+  if (isEncyclopediaUnlocked) {
+    showContinentScreen();
+  } else {
+    showPurchaseDialog();
+  }
+}
+
+// 購入案内
+function showPurchaseDialog() {
+  const ok = confirm("図鑑モードは有料です。購入しますか？");
+  if (ok) {
+    startPurchase();
+  }
+}
+
+// あとでiPhone / Android課金をつなぐ場所
+function startPurchase() {
+  // Android
+  if (window.Android) {
+    window.Android.purchaseItem("encyclopedia_unlock");
+  }
+  // iPhone
+  else if (window.webkit && window.webkit.messageHandlers.purchase) {
+    window.webkit.messageHandlers.purchase.postMessage("encyclopedia_unlock");
+  }
+  // テスト用（PC）
+  else {
+    const ok = confirm("テスト購入しますか？");
+    if (ok) unlockEncyclopedia();
+  }
+}
+// 購入完了後に呼ぶ
+function unlockEncyclopedia() {
+  isEncyclopediaUnlocked = true;
+  localStorage.setItem("encyclopediaUnlocked", "true");
+  alert("図鑑モードが解放されました");
+  showContinentScreen();
+}
+function resetEncyclopediaPurchase() {
+  localStorage.removeItem("encyclopediaUnlocked");
+  isEncyclopediaUnlocked = false;
+  alert("図鑑課金状態をリセットしました");
+}
 /* =========================
    図鑑モード
 ========================= */
@@ -694,60 +762,93 @@ function showCountryDetail(country) {
 
   document.getElementById("detailFlag").src = "flags/" + country.code + ".png";
   document.getElementById("detailFlag").alt = country.jp;
-  document.getElementById("detailNameJp").textContent = country.jp;
-  document.getElementById("detailNameEn").textContent = "英語名 / EN: " + country.en;
+
   document.getElementById("detailContinent").textContent =
     continentLabels[country.continent] || "";
 
+  // 状態
+  let nameVisible = false;
   let capitalVisible = false;
+
+  // 初期表示（国名）
+  document.getElementById("detailNameJp").textContent =
+    "👉 国旗タップで表示 / Tap flag";
+  document.getElementById("detailNameEn").textContent = "";
 
   const extraInfo = document.getElementById("detailExtraInfo");
   extraInfo.innerHTML = `
     ${country.capital ? `
       <div class="detailRow">
-        <span class="detailLabel"><span class="icon">🏙️</span>首都 / Cap:</span>
-        <span class="detailValue" id="capitalValue">👉タップで表示/Tap to show</span>
-      </div>
-    ` : ""}
+        <span class="detailLabel" id="capitalLabel">
+          <span class="icon">🏙️</span>首都 / Cap:
+        </span>
+        <span class="detailValue" id="capitalValue">
+          👉 タップで表示 / Tap
+        </span>
+      </div>` : ""}
+
     ${country.population ? `
       <div class="detailRow">
         <span class="detailLabel"><span class="icon">👥</span>人口 / Pop:</span>
         <span class="detailValue">${country.population}</span>
-      </div>
-    ` : ""}
+      </div>` : ""}
+
     ${country.landarea ? `
       <div class="detailRow">
         <span class="detailLabel"><span class="icon">🌍</span>面積 / Area:</span>
         <span class="detailValue">${country.landarea}</span>
-      </div>
-    ` : ""}
+      </div>` : ""}
+
     ${country.currency ? `
       <div class="detailRow">
         <span class="detailLabel"><span class="icon">💰</span>通貨 / Curr:</span>
         <span class="detailValue">${country.currency}</span>
-      </div>
-    ` : ""}
+      </div>` : ""}
+
     ${country.language ? `
       <div class="detailRow">
         <span class="detailLabel"><span class="icon">🗣️</span>言語 / Lang:</span>
         <span class="detailValue">${country.language}</span>
-      </div>
-    ` : ""}
+      </div>` : ""}
   `;
 
-  // =========================
-  // 国旗クリックで表示ON/OFF
-  // =========================
   const flagWrap = document.querySelector("#countryDetailScreen .flagWrap");
+
+  // =========================
+  // 国旗タップ（国名）
+  // =========================
   flagWrap.onclick = function () {
+    nameVisible = !nameVisible;
+
+    if (nameVisible) {
+      document.getElementById("detailNameJp").textContent = country.jp;
+      document.getElementById("detailNameEn").textContent = "英語名 / EN: " + country.en;
+    } else {
+      document.getElementById("detailNameJp").textContent =
+        "👉 国旗タップで表示 / Tap flag";
+      document.getElementById("detailNameEn").textContent = "";
+    }
+  };
+
+  // =========================
+  // 首都タップ（ラベル or 値）
+  // =========================
+  function toggleCapital() {
     const capitalEl = document.getElementById("capitalValue");
     if (!capitalEl) return;
 
     capitalVisible = !capitalVisible;
+
     capitalEl.textContent = capitalVisible
       ? country.capital
-      : "👉 国旗をタップして首都を表示";
-  };
+      : "👉 タップで表示 / Tap";
+  }
+
+  const capitalLabel = document.getElementById("capitalLabel");
+  const capitalValue = document.getElementById("capitalValue");
+
+  if (capitalLabel) capitalLabel.onclick = toggleCapital;
+  if (capitalValue) capitalValue.onclick = toggleCapital;
 
   // =========================
   // iPhoneでもタップ縮小が見えるようにする
@@ -776,6 +877,7 @@ function showCountryDetail(country) {
     flagWrap.classList.remove("tapActive");
   };
 
+  // 戻る
   document.getElementById("detailBackBtn").onclick = function () {
     hideAllScreens();
     document.getElementById("flagListScreen").style.display = "block";
