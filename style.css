@@ -1435,6 +1435,8 @@ button.restoreBtn{
   margin-bottom:6px;    /* ← 下余白少し減らす */
 }
 
+/* フラッシュカード */
+
 .flashCard{
   width:100%;
   max-width:420px;
@@ -1502,15 +1504,20 @@ button.restoreBtn{
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px 0;
+  padding:10px 0;
   box-sizing:border-box;
 }
+
 #flashScreen .app{
   width:100%;
   max-width:420px;
-  margin:auto;
-  padding:20px;
+  padding:16px;
   box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  max-height:none;
+  overflow:visible;
 }
 
 #memorizedBtn{
