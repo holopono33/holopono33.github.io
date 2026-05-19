@@ -17,10 +17,265 @@
 <div id="loadingScreen">
   <p>初回準備中... / Loading...</p>
 </div>
-<!-- 🏠 ホーム面 -->
-<div id="homeScreen" class="homeMenu screen">
+
+<!-- 🏠 TOPページ -->
+<div id="topScreen" class="topMenu screen">
+
   <div class="app">
-   <h1>🌍 FLAG QUIZ<BR>-世界196カ国 国旗クイズ-</h1>
+
+    <!-- タイトル -->
+    <div class="topHeader">
+
+       <div class="titleArea">
+         <h1><span class="mainLogo">🌍 FLAG QUIZ</span><br>
+             <span class="subLogo"> 世界196カ国 国旗クイズ -Learn the flags of the world-</span>
+        </h1>
+        <div class="loginMessageArea">
+        <div id="loginComment" class="loginComment">
+          今日からスタート！
+        </div>
+        <div id="loginTitle" class="loginTitle">あ</div>
+        <div class="loginCharacter">
+         🦉
+        </div>
+       </div></div>
+
+     <div class="loginBadge">
+     🔥 <span id="loginDays">0</span>日連続
+     </div>
+
+    </div>
+
+    <!-- メニュー -->
+     <div class="topButtonGroup">
+
+      <!-- 暗記モード -->
+      <button class="topBtn memoryBtn" onclick="openMemoryMenu()">
+        <span class="mode-title">🧠 暗記モード/Memorization</span>
+        <span class="topSubText">Memorize flags / 国旗を覚える練習</span>
+      </button>
+
+      <!-- ゲームモード -->
+      <button class="topBtn gameBtn" onclick="openGameMenu()">
+        <span class="mode-title">🎮 ゲームモード/Game</span>
+        <span class="topSubText">Quiz game / 実力チェック</span>
+      </button>
+
+      <!-- Progress　-->
+      <button class="topBtn stampBtn" onclick="openstampMenu()">
+        <span class="mode-title">🏅 達成状況/Progress</span>
+        <span class="topSubText">Your progress / 学習の達成状況</span>
+      </button>    
+
+      <!-- 記録 -->
+      <div id="timeAttackResult" class="timeResultBox">
+      <h3>🏆チャレンジ記録 /challenge record</h3>
+      <p>今回 / Score: <span id="currentScore">-</span></p>
+      <p>最高スコア / High score: <span id="taHighScore">0</span></p>
+      <p style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:0;">
+      <span>ランク / Rank: <span id="taRank">-</span></span>
+      <span>順位 / Place: <span id="taRanking">-</span></span>
+      </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- 🏅 スタンプカード -->
+    <div id="stampCard" class="stampCardBox screen" style="display:none;">
+      <div class="app">
+        <h3 class="modeTitle">🏅 達成状況 / Progress</h3>
+        <div class="overallProgress">
+
+  <div class="overallStars">
+    ⭐ 覚えた国:
+    <span id="memorizedCount">0</span>
+  </div>
+
+  <div class="overallRemaining">
+    🌍 あと
+    <span id="remainingCount">0</span>
+    カ国で完全制覇！
+  </div>
+
+</div>
+        <div class="stampGrid">
+        <div class="stampItem">
+
+        <div class="stampTop">
+         🌸 Asia 
+        </div>
+       <!-- バー + % -->
+         <div class="progressRow">
+         <div class="progressBar">
+         <div id="asiaBar" class="progressFill"></div>
+         </div>
+         <div class="progressText">
+         <span id="asiaPercent">0%</span>
+         </div></div>
+
+       <!-- ランク + 次 -->
+       <div class="stampBottom">
+       <div id="asiaStamp" class="stampRank">
+         🥉 Bronze
+       </div>
+       <div id="asiaNext" class="nextGoal">
+         あと3問でGold！
+       </div>
+       </div></div>
+
+        <!--  Europe -->
+          <div class="stampItem">
+          <div class="stampTop">
+            🏰 Europe
+          </div>
+       <!-- バー + % -->
+         <div class="progressRow">
+         <div class="progressBar">
+           <div id="europeBar" class="progressFill"></div>
+         </div>
+         <div class="progressText">
+         <span id="europePercent">0%</span>
+         </div></div>
+
+       <!-- ランク + 次 -->
+         <div class="stampBottom">
+         <div id="europeStamp" class="stampRank">
+           🥈 Silver
+          </div>
+          <div id="europeNext" class="nextGoal">
+             あと3問でGold！
+          </div></div>
+          </div>
+
+        <!-- 🌍 Africa -->
+          <div class="stampItem">
+          <div class="stampTop">
+             🦁 Africa
+          </div>
+        <!-- バー + % -->
+          <div class="progressRow">
+          <div class="progressBar">
+          <div id="africaBar" class="progressFill"></div>
+          </div>
+
+          <div class="progressText">
+          <span id="africaPercent">0%</span>
+          </div></div>
+         <!-- ランク + 次 -->
+          <div class="stampBottom">
+          <div id="africaStamp" class="stampRank">
+           🥇 Gold
+          </div>
+
+         <div id="africaNext" class="nextGoal">
+           あと3問でPlatinum！
+         </div></div>
+         </div>
+  
+        <!--  Americas -->
+          <div class="stampItem">
+          <div class="stampTop">
+            🗽 Americas
+          </div>
+          <!-- バー + % -->
+          <div class="progressRow">
+          <div class="progressBar">
+          <div id="americaBar" class="progressFill"></div>
+          </div>
+
+         <div class="progressText">
+         <span id="americaPercent">0%</span>
+         </div></div>
+         <!-- ランク + 次 -->
+         <div class="stampBottom">
+         <div id="americaStamp" class="stampRank">
+          💎 Platinum
+         </div>
+
+        <div id="americaNext" class="nextGoal">
+            あと2問でDiamond！
+        </div></div>
+       </div>
+    
+      <!--  Oceania -->
+       <div class="stampItem">
+       <div class="stampTop">
+           🐨 Oceania
+        </div>
+        <!-- バー + % -->
+        <div class="progressRow">
+        <div class="progressBar">
+        <div id="oceaniaBar" class="progressFill"></div>
+        </div>
+        <div class="progressText">
+          <span id="oceaniaPercent">100%</span>
+        </div></div>
+        <!-- ランク + 次 -->
+        <div class="stampBottom">
+         <div id="oceaniaStamp" class="stampRank">
+          👑 Diamond
+        </div>
+         <div id="oceaniaNext" class="nextGoal">
+           完全制覇！
+        </div></div>
+        
+       </div>
+       <button class="backBtn" onclick="backToTOP()">🏠 TOPに戻る / Back to TOP</button>
+       </div>
+
+    </div>
+  </div>
+
+  <!-- 🏠 暗記モード -->
+<div id="memorization" class="memorization screen" style="display:none;">
+  <div class="app">
+   <h3 class="modeTitle">🧠 暗記モード / Memorization Mode</h3>
+
+      <div class="menuGroup">
+      <button class="review-btn" onclick="Flash()">
+      <span class="mode-title">🃏フラッシュカード / Flash Cards</span>
+      <span class="mode-subtext">国旗をめくって覚えよう / Flip & memorize flags</span>
+      </button>
+
+     <button class="continent-btn" onclick="openEncyclopedia()">
+      <span class="mode-title">📘 図鑑モード / Encyclopedia</span>
+      <span class="mode-subtext">国旗を見て学ぶ / Browse flags by continent</span>
+     </button>
+
+     <button class="normal-btn">
+      <span class="mode-title"></span>
+      <span class="mode-subtext">🔔 次回更新予定/Coming soon...</span>
+     </button>
+
+     <button class="challenge-btn">
+      <span class="mode-title"></span>
+      <span class="mode-subtext">🔔 次回更新予定/Coming soon...</span>
+     </button>
+     <button class="encyclopediaBtn">
+      <span class="mode-title"></span>
+      <span class="mode-subtext">🔔 次回更新予定/Coming soon...</span>
+     </button>
+
+     </div>
+
+        <div class="restoreArea">
+         <div class="restoreNote">
+          ※機種変更時はこちら👇 / Restore purchases
+         </div>
+         <button class="restoreBtn" onclick="restoreEncyclopediaPurchase()">
+          購入を復元 / Restore Purchases
+        </button>
+        </div>
+   <button class="backBtn" onclick="backToTOP()">🏠 TOPに戻る / Back to TOP</button>
+ </div>
+ </div>
+
+
+<!-- 🏠 ゲームモード -->
+<div id="homeScreen" class="homeMenu screen" style="display:none;">
+  <div class="app">
+   <h3 class="modeTitle">🎮 ゲームモード / Game</h3>
 
   <div class="menuGroup">
   <button class="normal-btn" onclick="startNormal()">
@@ -29,13 +284,13 @@
   </button>
 
   <!-- 🌎 大陸モードボタン -->
-<button class="continent-btn" onclick="openContinentModal()">
+ <button class="continent-btn" onclick="openContinentModal()">
   <span class="mode-title">🌎 大陸別モード / Continent mode</span>
   <span class="mode-subtext">選んだ大陸から出題 / Quiz by continent</span>
-</button>
+ </button>
 
 <!-- 🌎 モーダル -->
-<div id="continentModal" class="modal hidden" onclick="closeContinentModal(event)">
+ <div id="continentModal" class="modal hidden" onclick="closeContinentModal(event)">
   <div class="modalContent">
 
     <h4>🌎 大陸を選ぶ / Select a continent</h4>
@@ -54,23 +309,24 @@
      × 閉じる / Close
     </button>
     </div>
-</div>
-  <button class="review-btn" onclick="startReview()">
+  </div>
+    <button class="review-btn" onclick="startReview()">
     <span class="mode-title">🔁 復習モード / Review mode</span>
     <span class="mode-subtext">間違えた国を復習 / Review missed flags</span>
-  </button>
+    </button>
 
-  <button class="challenge-btn" onclick="startTimeAttack()">
+    <button class="challenge-btn" onclick="startTimeAttack()">
     <span class="mode-title">🏆 1分チャレンジ / 1-Min challenge</span>
     <!-- <span class="mode-subtext">1分で何問解けるか挑戦 / Solve as many as you can in 1 minute</span>-->
-  </button>
-  <button class="encyclopediaBtn" onclick="openEncyclopedia()">
-  <span class="mode-title">📘 図鑑モード / Encyclopedia</span>
-  <span class="mode-subtext">国旗を見て学ぶ / Browse flags by continent</span>
-</button>
-</div>
-
-<div id="timeAttackResult" class="timeResultBox">
+    </button>
+  
+    <button class="encyclopediaBtn">
+    <span class="mode-title"></span>
+    <span class="mode-subtext">🔔 次回更新予定/Coming soon...</span>
+    </button>
+   </div>
+<!--
+　<div id="timeAttackResult" class="timeResultBox">
   <h3>🏆 記録 /challenge record</h3>
   <p>今回 / Score: <span id="currentScore">-</span></p>
   <p>最高スコア / High score: <span id="taHighScore">0</span></p>
@@ -78,21 +334,23 @@
   <span>ランク / Rank: <span id="taRank">-</span></span>
   <span>順位 / Place: <span id="taRanking">-</span></span>
   </p>
-</div>
+　</div>-->
 
-<div class="restoreArea">
-  <div class="restoreNote">
-    ※機種変更時はこちら👇 / Restore purchases
+   <div class="restoreArea">
+    <div class="restoreNote">
+         難しいと感じたら暗記モードで練習しましょう👇
+        <br>If it feels difficult, try the Memorization mode.
+    </div>
+    <button class="restoreBtn" onclick="backTomemorization()">
+        🧠暗記モード / Memorization mode
+    </button>
   </div>
-  <button class="restoreBtn" onclick="restoreEncyclopediaPurchase()">
-    購入を復元 / Restore Purchases
-  </button>
-</div>
-
+   <button class="backBtn" onclick="backToTOP()">🏠 TOPに戻る / Back to TOP</button>
 </div>
 </div>
 
 <!-- 🎮 ゲーム画面 -->
+
 <div id="gameScreen" class="screen" style="display:none;">
 <div class="app">
 <div class="topbar">
@@ -103,7 +361,7 @@
 <div>🏆:<span id="highScore">0</span></div>
 
 </div>
-  <button onclick="goHome()">🏠ホームに戻る / Back to Home</button>
+  
   <h2 id="modeTitle"></h2>
   <div>正答率/Accuracy: <span id="accuracy">-</span></div>
   <div class="flagWrap">
@@ -114,7 +372,7 @@
   <button class="word" onclick="checkAnswer()">答える / Answer</button>
   <button class="skip" onclick="skipQuestion()">次へ / Skip</button>
   <button id="pauseBtn" class="pause" onclick="togglePause()">⏸ 停止 / Pause</button>
-
+  <button onclick="goHome()"> 🎮チャレンジに戻る / Back to Home</button>
 </div></div>
 
 
@@ -133,7 +391,7 @@
       <button onclick="showFlagList('oceania')">オセアニア / Oceania</button>
     </div>
 
-    <button class="backBtn" onclick="backToHome()">🏠 ホームに戻る / Back to Home</button>
+    <button class="backBtn" onclick="backTomemorization()">🧠暗記モードに戻る/to Memorization</button>
   </div>
 </div>
 
@@ -179,6 +437,39 @@
   </div>
 </div>
 
+<!-- 🔥 Flash Card -->
+
+<div id="flashScreen" class="screen" style="display:none;">
+
+  　<div class="app">
+
+    　<h2 id="detailModeTitle">🃏 Flash Cards</h2>
+
+     <!-- カード本体 -->
+　　　<div id="flashCard" class="flashCard">
+
+  　　<!-- 表 -->
+  　　<div class="cardFace cardFront">
+    
+    　<button id="memorizedBtn">★</button>
+
+    　<img id="flashFlag" class="flashFlag">
+
+    　<p class="tapText">Tap to flip</p>
+  　　</div>
+
+  <!-- 裏 -->
+  　<div class="cardFace cardBack">
+
+    <p id="flashNameJp" class="mainName"></p>
+    <p id="flashNameEn" class="subName"></p>
+    <p id="flashContinent" class="subName"></p>
+
+  </div>
+</div>
+<button class="backBtn" onclick="backTomemorization()">🧠暗記モードに戻る/to Memorization</button>
+</div>
+</div>
 <script src="data.js"></script>
 <script src="main.js"></script>
 

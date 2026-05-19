@@ -64,9 +64,12 @@ h1{
 ========================= */
 #homeScreen{
   width:100%;
+  padding: 15px 10px 21px; /* ←下をしっかり確保 */
+  box-sizing: border-box;
 }
 
 #homeScreen .menuGroup{
+  padding-top: 21px;
   display:flex;
   flex-direction:column;
   gap:8px;
@@ -139,7 +142,7 @@ h1{
 }
 
 #homeScreen .encyclopediaBtn{
-  background: linear-gradient(135deg, #3aa0ff, #5b7cff);
+  background: linear-gradient(135deg, #FF69B4, #FF69B4);
 }
 
 /* ホーム画面のプルダウン */
@@ -152,31 +155,44 @@ h1{
   background:white;
   margin:0;
 }
-/* 復元ボタン */
-#homeScreen button.restoreBtn{
-  min-height:auto;   /* ←これが重要🔥 */
-  padding:8px 10px;
-  font-size:13px;
-  background:#e5e7eb;
-  color:#666;
-}
 
+/* ゲームモードへテキスト */
+#homeScreen.restoreText
 .restoreArea{
+  font-size:11px !important;
+  color:#777;
+  line-height:1.2;
+  margin:0 0 4px !important;
+}
+ /*ゲームモードボタン */
+#homeScreen button.restoreBtn,
+  button.restoreBtn{
+  width:86% !important;
+  min-height:30px !important;
+  padding:5px 10px !important;
+  margin:4px auto 0 !important;
+  display:block !important;
+  font-size:12px !important;
+  border-radius:14px !important;
+  background:#3004f3;
+  color:#e5e7eb;
+}
+ /*ゲームモードエリア */
+ #homeScreen.restoreArea{
   width:88%;
-  margin:10px auto 0;   /* ← 少し詰める */
+  margin:6px auto 0;   /* ← 少し詰める */
   text-align:center;
 }
 
-.restoreNote{
-  font-size:11px;       /* ← 少し小さく */
+#homeScreen.restoreNote{
+  font-size:11px;        /* ← 少し小さく */
   color:#777;
-  line-height:1.3;      /* ← 行間詰める */
-  margin-bottom:6px;    /* ← 下余白少し減らす */
+  line-height:1.3;      /*  ← 行間詰める */
+  margin-bottom:6px;     /* ← 下余白少し減らす */
 }
 
-
 /* 1分チャレンジ記録 */
-#homeScreen .timeResultBox{
+.topButtonGroup .timeResultBox{
   margin-top:10px;
   padding:10px 12px;
   border-radius:16px;
@@ -185,13 +201,13 @@ h1{
   box-shadow:0 8px 15px rgba(0,0,0,0.08);
 }
 
-#homeScreen .timeResultBox h3{
+.topButtonGroup .timeResultBox h3{
   margin:0 0 6px 0;
   font-size:18px;
   line-height:1.25;
 }
 
-#homeScreen .timeResultBox p{
+.topButtonGroup .timeResultBox p{
   margin:5px 0;
   font-size:15px;
   line-height:1.25;
@@ -329,24 +345,31 @@ input{
   font-size:19px;
   padding:15px;
   border-radius:18px;
+  min-height:49px;
 }
 
 /* 次へ */
 #gameScreen button.skip{
   background:#9ca3af;
   color:white;
-  font-size:15px;
-  padding:8px;
+  font-size:16px;
+  padding:10px;
   border-radius:18px;
+  min-height:49px;
+  margin-top:10px;
 }
 
 /* 停止 / 再開 */
 #gameScreen button.pause{
+  width:88%;
+  margin:14px auto 0;
+  display:block;
   background:linear-gradient(135deg,#ff4d4f,#d9363e);
   color:white;
   font-size:15px;
-  padding:8px;
+  padding:9px;
   border-radius:18px;
+  min-height:49px;
 }
 /*  再開 */
 #gameScreen button.pause.resumeMode{
@@ -526,7 +549,9 @@ input{
 
 #continentScreen,
 #flagListScreen,
-#countryDetailScreen{
+#countryDetailScreen
+
+{
   width:100%;
   text-align:center;
 }
@@ -534,32 +559,40 @@ input{
 
 /* =========================
    戻るボタン 最終統一版
-========================= */
+========================= 
 
 #continentScreen .backBtn,
 #flagListScreen .backBtn,
-#countryDetailScreen .backBtn{
-  width:88%;
-  display:block;
-  margin:22px auto 0;
-  padding:12px;
-  border:none;
-  border-radius:18px;
-  background:linear-gradient(135deg,#60a5fa,#2563eb);
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 4px 10px rgba(0,0,0,0.15);
-  transition:0.2s;
-  letter-spacing:0.5px;
+#countryDetailScreen .backBtn
+#stampCard .backBtn
+#homeScreen .backBtn*/
+.backBtn
+{
+  width:88% !important;
+  display:block !important;
+  margin:8px auto 0 !important;
+  padding:8px !important;
+  border:none !important;
+  border-radius:18px !important;
+  background:linear-gradient(135deg,#60a5fa,#2563eb) !important;
+  color:white !important;
+  font-size:16px !important;
+  font-weight:bold !important;
+  cursor:pointer !important;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15) !important;
+  transition:0.2s !important;
+  min-height:auto !important;
 }
 
-#continentScreen .backBtn:hover,
+/*#continentScreen .backBtn:hover,
 #flagListScreen .backBtn:hover,
-#countryDetailScreen .backBtn:hover{
-  transform:translateY(-1px);
-  opacity:0.92;
+#countryDetailScreen .backBtn:hover
+#stampCard .backBtn:hover
+#homeScreen .backBtn:hover*/
+.backBtn:hover
+{
+  transform:translateY(-1px)!important;
+  opacity:0.92!important;
 }
 
 /* =========================
@@ -859,7 +892,7 @@ input{
   flex-shrink:0;
 }
 
-#continentScreen .backBtn{
+/*#continentScreen .backBtn{
   width:88%;
   margin:22px auto 0;
   padding:12px 18px;
@@ -875,5 +908,624 @@ input{
     0 0 0 3px rgba(255,255,255,0.65);
   cursor:pointer;
   display:block;
+}*/
+
+/* =========================
+   TOPページ
+========================= */
+
+#topScreen{
+  width:100%;
+  /*max-width:430px;
+  margin:auto;
+  padding:18px;
+  box-sizing:border-box;*/
 }
 
+#topScreen .app{
+  display:flex;
+  flex-direction:column;
+   gap:8px;
+}
+
+.topTitle{
+  text-align:center;
+  color:white;
+  font-size:34px;
+  margin-bottom:18px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* ボタングループ */
+.topButtonGroup{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+/* ボタン共通 */
+.topBtn{
+  width:100%;
+  border:none;
+  border-radius:22px;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:18px 12px;
+  min-height:92px;
+  font-size:24px;
+  font-weight:800;
+  line-height:1.3;
+  box-shadow:0 6px 14px rgba(0,0,0,0.18);
+}
+
+/* ホバー */
+.topBtn:hover{
+  transform:translateY(-2px);
+  opacity:0.95;
+}
+
+/* タイトル */
+.topModeTitle{
+  font-size:24px;
+  font-weight:800;
+}
+
+/* 英語 */
+.topSubText{
+  font-size:14px;
+  font-weight:500;
+  opacity:0.92;
+  margin-top:4px;
+}
+
+/* 暗記 */
+.memoryBtn{
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+/* ゲーム */
+.gameBtn{
+  background:linear-gradient(135deg,#8b5cf6,#7c3aed);
+}
+
+/* スタンプ */
+.stampBtn{
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+/* 記録 */
+.scoreBtn{
+  background:linear-gradient(135deg,#10b981,#059669);
+}
+
+/* Android小型 */
+@media (max-width:420px){
+
+  .topTitle{
+    font-size:28px;
+  }
+
+  .loginBonusBox{
+    font-size:18px;
+    padding:12px;
+  }
+
+  .topBtn{
+    min-height:82px;
+    font-size:20px;
+    padding:14px 10px;
+  }
+
+  .topModeTitle{
+    font-size:20px;
+  }
+
+  .topSubText{
+  display:block;
+  font-size:15px;
+  opacity:0.92;
+  margin-top:4px;
+  font-weight:normal;
+  line-height:1.15;
+  }
+}
+
+/* ===== TOPヘッダー ===== */
+.topHeader{
+  position:relative;
+  margin-bottom:20px;
+}
+
+/* タイトル */
+.titleArea h1{
+  display:block;
+  padding:12px 18px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  /*border:2px solid #bfdbfe;
+  box-shadow:0 4px 10px rgba(59,130,246,0.12);
+  color:#1e3a8a;*/
+  font-size:21px;
+  font-weight:800;
+  line-height:1.35;
+  text-align:left;
+}
+
+.loginTitle {
+  margin-top: 5px;
+  display: inline-block;
+  padding: 3px 3px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+
+}
+
+/* 連続ログイン */
+.loginBadge{
+  position:absolute;
+  top:4px;
+  right:4px;
+  padding:6px 12px;
+  /*border-radius:999px;
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.3);
+  color:#2563eb;*/
+  font-size:15px;
+  font-weight:700;
+ /* box-shadow:0 4px 10px rgba(0,0,0,0.08);*/
+}
+
+/* コメント */
+.loginComment{
+  position:relative;
+  margin-top:8px;
+  background:#fff7ed;
+  color:#9a3412;
+  padding:8px 10px;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:600;
+  border:1px solid #fed7aa;
+  width:240px;
+}
+.loginComment::after{
+  content:"";
+  position:absolute;
+   right:-6px;
+  bottom:12px;
+  width:12px;
+  height:12px;
+  background:#fff7ed;
+  border-right:1px solid #fed7aa;
+  border-bottom:1px solid #fed7aa;
+  transform:rotate(-45deg);
+}
+.loginMessageArea{
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  gap:5px;
+}
+.loginCharacter{
+  font-size:41px;
+  margin: 0px 5px 0px 0px;
+  animation:floatChar 2s ease-in-out infinite;
+}
+@keyframes floatChar{
+  0%{ transform:translateY(0px);}
+  50%{ transform:translateY(-4px);}
+  100%{ transform:translateY(0px);}
+}
+/* タイトル */
+.mainLogo{
+  display:inline-block;
+  font-size:21px;
+  font-weight:900;
+  animation:floatLogo 3s ease-in-out infinite;
+  letter-spacing:1px;
+}
+/*@keyframes floatLogo{
+  0%{ transform:translateY(0px);}
+  50%{ transform:translateY(-2px);}
+  100%{ transform:translateY(0px);}
+}*/
+.subLogo{
+  font-size:13px;
+  color:#475569;
+  font-weight:600;
+  margin-left:11px;
+}
+
+
+/* ===== スタンプカード ===== */
+
+/*.stampCardBox{
+  margin-top:20px;
+  background:white;
+  border-radius:24px;
+  padding:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+}*/
+
+#stampCard{
+  width:100%;
+  /*max-width:430px;
+  margin:auto;
+  padding:18px;
+  box-sizing:border-box;*/
+}
+
+#stampCard .app{
+  display:flex;
+  flex-direction:column;
+   gap:8px;
+
+}
+
+
+/*.stampCardBox h3{
+  margin-top:0;
+  margin-bottom:16px;
+  text-align:center;
+  font-size:22px;
+}*/
+
+.stampGrid{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.stampItem{
+  display:flex;
+  flex-direction:column;   /* ←追加 */
+  background:#f8fafc;
+  padding:5px 8px;
+  border-radius:15px;
+  font-weight:bold;
+  font-size:15px;
+  margin-top:3px;
+}
+
+.stampBottom{
+  margin-top:3px;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stampTop{
+text-align:left;
+}
+
+
+.overallProgress{
+  background:#fff;
+  border-radius:18px;
+  padding:5px 8px;
+  margin-bottom:10px;
+  box-shadow:
+     0 3px 10px rgba(0,0,0,0.06);
+  text-align:center;
+}
+
+.overallStars{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:3px;
+}
+
+.overallRemaining{
+  font-size:16px;
+  color:#555;
+}
+
+.progressRow{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+/* バー */
+.progressBar{
+  flex:1;
+  height:10px;
+  background:#e5e7eb;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+/* 中身 */
+.progressFill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#22c55e,#16a34a);
+  border-radius:999px;
+}
+
+/* % */
+.progressText{
+  font-size:13px;
+  color:#666;
+  min-width:40px;
+  text-align:right;
+}
+
+/* ランク */
+.stampRank{
+  font-weight:bold;
+  font-size:15px;
+  display: block;
+  padding-left: 11px;
+}
+
+.stampRank.diamond{
+  color:#00cfff;
+  text-shadow:
+    0 0 10px rgba(0,255,255,0.7),
+    0 0 20px rgba(0,255,255,0.5);
+  animation: diamondGlow 1.5s infinite alternate;
+}
+
+@keyframes diamondGlow{
+  from{
+    transform:scale(1);
+  }
+  to{
+    transform:scale(1.08);
+  }
+}
+
+
+/* 次 */
+.nextGoal{
+  font-size:12px;
+  color:#666;
+ 
+}
+
+/* =========================
+   暗記モード
+========================= */
+
+#memorization{
+  width:100%;
+  /*max-width:430px;
+  margin:auto;
+  padding:18px;
+  box-sizing:border-box;*/
+}
+
+#memorization .app{
+  display:flex;
+  flex-direction:column;
+   gap:8px;
+}
+
+#memorization .menuGroup{
+  padding-top: 21px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+#memorization button{
+  width:100%;
+  padding:9px 10px;
+  min-height:72px;
+  border:none;
+  border-radius:14px;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  line-height:1.2;
+  margin:0;
+  font-size:16px;
+}
+
+@media (max-width: 400px) {
+  .android-device #memorization .mode-title{
+    font-size:17px;   /* 少しだけ小さく */
+     }
+  .android-device #memorization .mode-subtext{
+    font-size:13px;   /* サブ文字さらに小さく */
+      }
+}
+
+#memorization button:hover{
+  transform:translateY(-2px);
+  opacity:0.9;
+}
+
+/* 暗記のボタン文字 */
+#memorization .mode-title{
+  display:block;
+  font-size:20px;
+  font-weight:bold;
+}
+
+#memorization .mode-subtext{
+  display:block;
+  font-size:15px;
+  opacity:0.92;
+  margin-top:4px;
+  font-weight:normal;
+  line-height:1.15;
+}
+
+/* ホーム画面の色分け */
+#memorization .normal-btn{
+  background:linear-gradient(135deg,#4e73df,#2e59d9);
+}
+
+#memorization .continent-btn{
+  background:linear-gradient(135deg,#34d399,#10b981);
+}
+
+#memorization .review-btn{
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
+}
+
+#memorization .challenge-btn{
+  background:linear-gradient(135deg,#8b5cf6,#6366f1);
+}
+
+#memorization .encyclopediaBtn{
+  background: linear-gradient(135deg, #FF69B4, #FF69B4);
+}
+
+/* 暗記モードのプルダウン 
+#memorization {
+  width:100%;
+  padding:12px 14px;
+  font-size:15px;
+  border:1px solid #dcdcdc;
+  border-radius:14px;
+  background:white;
+  margin:0;
+}*/
+
+/* 復元案内テキスト */
+.restoreText
+.restoreArea{
+  font-size:11px !important;
+  color:#777;
+  line-height:1.2;
+  margin:0 0 4px !important;
+}
+/* 復元ボタン */
+#memorization button.restoreBtn,
+button.restoreBtn{
+  width:86% !important;
+  min-height:30px !important;
+  padding:5px 10px !important;
+  margin:4px auto 0 !important;
+  display:block !important;
+  font-size:12px !important;
+  border-radius:14px !important;
+  background:#e5e7eb;
+  color:#666;
+}
+/* 復元エリア */
+.restoreArea{
+  width:88%;
+  margin:6px auto 0;   /* ← 少し詰める */
+  text-align:center;
+}
+
+.restoreNote{
+  font-size:11px;       /* ← 少し小さく */
+  color:#777;
+  line-height:1.3;      /* ← 行間詰める */
+  margin-bottom:6px;    /* ← 下余白少し減らす */
+}
+
+.flashCard{
+  width:100%;
+  max-width:420px;
+  height:400px;
+  margin:auto;
+  position:relative;
+
+  transform-style:preserve-3d;
+  transition:transform 0.6s;
+}
+
+.flashCard.flipped{
+  transform:rotateY(180deg);
+}
+
+.cardFace{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:28px;
+  background:#f5f5f5;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:24px;
+  box-sizing:border-box;
+}
+
+.cardBack{
+  transform:rotateY(180deg);
+}
+
+.flashFlag{
+  width:260px;
+  max-width:90%;
+  border-radius:12px;
+  box-shadow:
+  0 6px 18px rgba(0,0,0,0.18);
+  transform:translateY(-10px);
+}
+
+#flashNameJp{
+  font-size:36px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+#flashNameEn{
+  font-size:24px;
+  color:#444;
+  margin-bottom:10px;
+}
+
+#flashContinent{
+  font-size:20px;
+  color:#666;
+}
+
+#flashScreen{
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px 0;
+  box-sizing:border-box;
+}
+#flashScreen .app{
+  width:100%;
+  max-width:420px;
+  margin:auto;
+  padding:20px;
+  box-sizing:border-box;
+}
+
+#memorizedBtn{
+  position:absolute;
+  top:18px;
+  right:18px;
+  font-size:34px;
+  border:none;
+  background:none;
+  color:#cfcfcf;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+#memorizedBtn.active{
+  color:gold;
+  transform:scale(1.1);
+}

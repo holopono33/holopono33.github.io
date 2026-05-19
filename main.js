@@ -53,32 +53,54 @@ document.getElementById("highScore").textContent=
 localStorage.getItem("highScore")||0;
 }
 
-function startTimer(){
+//function startTimer(){
+  // clearInterval(timer); 
+   //document.getElementById("time").textContent = timeLeft;
+   //timer = setInterval(()=>{
+    // if(!paused){
+      // timeLeft--;
+       //document.getElementById("time").textContent = timeLeft;
+       //if(timeLeft <= 0){
+        // clearInterval(timer);
+         //skipQuestion(true);
+      // }
+     //}
+   //},1000);
+ //}
 
-  clearInterval(timer); // ← これ追加
+ function startTimer(){
+
+  if(!isTimeAttack) return;
+
+  clearInterval(timer);
 
   document.getElementById("time").textContent = timeLeft;
 
   timer = setInterval(()=>{
 
     if(!paused){
+
       timeLeft--;
+
       document.getElementById("time").textContent = timeLeft;
 
       if(timeLeft <= 0){
+
         clearInterval(timer);
+
         skipQuestion(true);
+
       }
     }
 
   },1000);
 }
-
 function nextQuestion(){ 
 clearInterval(timer);
-paused=false;
+
 if(!isTimeAttack){
   timeLeft = 10;
+  resetPauseButton(); // ← 追加したやつ
 }
 
 let source = countries;
@@ -180,6 +202,7 @@ setTimeout(nextQuestion,1500);
 function skipQuestion(timeup=false){
 if(!isTimeAttack){
 clearInterval(timer);
+resetPauseButton();
 }
 totalAnswers++; // ← ★これ追加（重要）
 combo=0;
@@ -245,6 +268,16 @@ function togglePause() {
     btn.classList.remove("resumeMode");
   }
 }
+//↓次の問題へで停止に戻す
+function resetPauseButton() {
+  paused = false;
+
+  const btn = document.getElementById("pauseBtn");
+  if (btn) {
+    btn.textContent = "⏸ 停止 / Pause";
+    btn.classList.remove("resumeMode");
+  }
+}
 
 function toggleReviewMode(){
 reviewMode=!reviewMode;
@@ -270,6 +303,9 @@ function goHome() {
 }
 
 function startNormal() {
+  document.querySelector(".timer").style.display = "none";
+  document.getElementById("pauseBtn").style.display = "none";
+
   clearInterval(timer);
   resetTimeAttackState();
 
@@ -280,13 +316,15 @@ function startNormal() {
   totalAnswers = 0; // ← ★これ追加
   paused = false;
 
-  document.getElementById("modeTitle").innerText = "通常モード/Normal mode";
+  document.getElementById("modeTitle").innerText = "▶ 通常モード/Normal mode";
   showGameScreen();
   updateUI(); // ← ★これ追加（超重要）
   nextQuestion();
 }
 
 function startContinent() {
+  document.querySelector(".timer").style.display = "none";
+  document.getElementById("pauseBtn").style.display = "none";
   clearInterval(timer);
   resetTimeAttackState();
 
@@ -297,13 +335,16 @@ function startContinent() {
   totalAnswers = 0; // ← ★これ追加
   paused = false;
 
-  document.getElementById("modeTitle").innerText = "大陸別モード/Continent mode";
+  document.getElementById("modeTitle").innerText = "🌎大陸別モード/Continent mode";
   showGameScreen();
   updateUI(); // ← ★これ追加（超重要）
   nextQuestion();
 }
 
 function startReview() {
+
+  document.querySelector(".timer").style.display = "none";
+  document.getElementById("pauseBtn").style.display = "none";
    clearInterval(timer);
   resetTimeAttackState();
 
@@ -314,7 +355,7 @@ function startReview() {
   totalAnswers = 0; // ← ★これ追加
   paused = false;
 
-  document.getElementById("modeTitle").innerText = "復習モード/Review mode";
+  document.getElementById("modeTitle").innerText = "🔁復習モード/Review mode";
   showGameScreen();
   updateUI(); // ← ★これ追加（超重要）
   nextQuestion();
@@ -350,6 +391,8 @@ function startContinentFromSelect() {
 }
 
 function startTimeAttack() {
+  document.querySelector(".timer").style.display = "block";
+  document.getElementById("pauseBtn").style.display = "none";
   clearInterval(timer);
   clearInterval(timeAttackTimer);
   timeAttackTimer = null;
@@ -686,10 +729,21 @@ function hideAllScreens() {
   });
 }
 
+// topへ戻る
+function backToTOP() {
+  hideAllScreens();
+  document.getElementById("topScreen").style.display = "block";
+}
+
 // ホームへ戻る
 function backToHome() {
   hideAllScreens();
   document.getElementById("homeScreen").style.display = "block";
+}
+// 暗記モードへ戻る
+function backTomemorization() {
+  hideAllScreens();
+  document.getElementById("memorization").style.display = "block";
 }
 
 // 大陸選択画面を表示
@@ -940,3 +994,492 @@ window.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("android-device");
   }
 });
+
+function openGameMenu(){
+
+  document.getElementById("topScreen").style.display = "none";
+
+  document.getElementById("homeScreen").style.display = "block";
+}
+
+function openstampMenu(){
+
+  document.getElementById("topScreen").style.display = "none";
+
+  document.getElementById("stampCard").style.display = "block";
+}
+
+function openMemoryMenu(){
+
+  document.getElementById("topScreen").style.display = "none";
+
+  document.getElementById("memorization").style.display = "block";
+}
+
+// =========================
+// フラッシュカード
+// =========================
+
+const flashCard = document.getElementById("flashCard");
+const memorizedBtn = document.getElementById("memorizedBtn");
+
+let currentIndex = 0;
+let startX = 0;
+
+// 覚えた国保存
+let memorizedCountries =
+JSON.parse(localStorage.getItem("memorizedCountries")) || [];
+
+
+// =========================
+// フラッシュカード開始
+// =========================
+
+function Flash(){
+
+  hideAllScreens();
+
+  document.getElementById("flashScreen").style.display = "block";
+
+  currentIndex = 0;
+
+  showFlashCard(currentIndex);
+}
+
+
+// =========================
+// カード表示
+// =========================
+
+function showFlashCard(index){
+
+  // 裏返りリセット
+  flashCard.classList.remove("flipped");
+
+  const country = countries[index];
+
+  const continentLabels = {
+    asia: "アジア / Asia",
+    europe: "ヨーロッパ / Europe",
+    africa: "アフリカ / Africa",
+    northamerica: "北アメリカ / North America",
+    southamerica: "南アメリカ / South America",
+    oceania: "オセアニア / Oceania"
+  };
+
+  // 国旗
+  document.getElementById("flashFlag").src =
+    "flags/" + country.code + ".png";
+
+  // 日本語名
+  document.getElementById("flashNameJp").textContent =
+    country.jp;
+
+  // 英語名
+  document.getElementById("flashNameEn").textContent =
+    country.en;
+
+  // 大陸
+  document.getElementById("flashContinent").textContent =
+    continentLabels[country.continent] || "";
+
+  // ⭐状態反映
+  if(memorizedCountries.includes(country.code)){
+    memorizedBtn.classList.add("active");
+  }else{
+    memorizedBtn.classList.remove("active");
+  }
+}
+
+
+// =========================
+// タップで裏返す
+// =========================
+
+flashCard.addEventListener("click", () => {
+  flashCard.classList.toggle("flipped");
+});
+
+
+// =========================
+// ⭐ 覚えた機能
+// =========================
+
+memorizedBtn.addEventListener("click", (e) => {
+
+  e.stopPropagation();
+
+  const country = countries[currentIndex];
+
+  if(memorizedCountries.includes(country.code)){
+
+    memorizedCountries =
+      memorizedCountries.filter(c => c !== country.code);
+
+  }else{
+
+    memorizedCountries.push(country.code);
+  }
+
+  localStorage.setItem(
+    "memorizedCountries",
+    JSON.stringify(memorizedCountries)
+  );
+　updateStampCards();
+  showFlashCard(currentIndex);
+});
+
+
+
+// =========================
+// 次の国
+// =========================
+
+function nextCountry(){
+
+  currentIndex++;
+
+  if(currentIndex >= countries.length){
+    currentIndex = 0;
+  }
+
+  showFlashCard(currentIndex);
+}
+
+
+// =========================
+// 前の国
+// =========================
+
+function prevCountry(){
+
+  currentIndex--;
+
+  if(currentIndex < 0){
+    currentIndex = countries.length - 1;
+  }
+
+  showFlashCard(currentIndex);
+}
+
+
+// =========================
+// スワイプ
+// =========================
+
+flashCard.addEventListener("touchstart", e => {
+
+  startX = e.touches[0].clientX;
+
+});
+
+flashCard.addEventListener("touchend", e => {
+
+  let endX = e.changedTouches[0].clientX;
+
+  let diff = endX - startX;
+
+  // 左スワイプ
+  if(diff < -50){
+    nextCountry();
+  }
+
+  // 右スワイプ
+  if(diff > 50){
+    prevCountry();
+  }
+
+});
+
+
+
+
+// ===== 連続ログイン =====
+
+function updateLoginBonus(){
+
+  const today = new Date().toDateString();
+
+  let lastLogin = localStorage.getItem("lastLoginDate");
+  let streak = parseInt(localStorage.getItem("loginStreak")) || 0;
+
+  // 初回
+  if(!lastLogin){
+    streak = 1;
+  }else{
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate()-1);
+
+    // 昨日ログインしてた
+    if(lastLogin === yesterday.toDateString()){
+      streak++;
+    }
+
+    // 今日すでにログイン済み
+    else if(lastLogin === today){
+
+    }
+
+    // 連続途切れ
+    else{
+      streak = 1;
+    }
+  }
+
+  // 保存
+  localStorage.setItem("lastLoginDate", today);
+  localStorage.setItem("loginStreak", streak);
+
+  // 表示
+  document.getElementById("loginDays").textContent = streak;
+
+// コメント
+
+let comment = "";
+let title = "";
+
+// =======================
+// ① 段階名（称号）
+// =======================
+if (streak < 3) {
+  title = "Starter";
+} else if (streak < 7) {
+  title = "Beginner";
+} else if (streak < 15) {
+  title = "Streaker";
+} else if (streak < 30) {
+  title = "Advanced";
+} else if (streak < 50) {
+  title = "Expert";
+} else if (streak < 80) {
+  title = "Master";
+} else if (streak < 100) {
+  title = "Elite";
+} else if (streak < 150) {
+  title = "Legend";
+} else if (streak < 200) {
+  title = "Mythic";
+} else {
+  title = "God Tier";
+}
+
+// =======================
+// ② 10日ごとの突破コメント
+// =======================
+if (streak > 0 && streak % 10 === 0) {
+  const list = [
+    `🎉 ${streak}日突破！すごい継続力！`,
+    `🔥 ${streak}日突破！習慣化成功！`,
+    `🏆 ${streak}日突破！完全に定着！`,
+    `✨ ${streak}日突破！Amazing！`
+  ];
+  comment = list[Math.floor(Math.random() * list.length)];
+}
+
+// =======================
+// ③ 通常コメント
+// =======================
+else if (streak === 1) {
+  comment = "今日からスタート！/Start today!";
+}
+else if (streak === 2) {
+  comment = "いい感じ！ / Good start!";
+}
+else if (streak === 3) {
+  comment = "3日坊主突破！/Broke the 3-day barrier";
+}
+else if (streak < 7) {
+  comment = "習慣化してきたね！/Getting into a habit!";
+}
+else if (streak < 14) {
+  comment = "すごい継続力！/Great consistency!";
+}
+else if (streak < 30) {
+  comment = "かなり覚えてきた！/Getting used to it!";
+}
+else if (streak < 50) {
+  comment = "安定してきた！/Getting stable!";
+}
+else if (streak < 80) {
+  comment = "かなり上級者！/Advanced level!";
+}
+else if (streak < 100) {
+  comment = "トップレベルに近い！/Near top level!";
+}
+else if (streak < 150) {
+  comment = "伝説級の継続力！/Legendary consistency!";
+}
+else if (streak < 200) {
+  comment = "もはや異次元！/Beyond human level!";
+}
+else {
+  comment = "国旗マスター！/Flag Master!";
+}
+
+// =======================
+// ④ 表示
+// =======================
+const titleEmoji = {
+  "Starter": "🌱",
+  "Beginner": "🌿",
+  "Streaker": "🔥",
+  "Advanced": "⚡",
+  "Expert": "🏅",
+  "Master": "👑",
+  "Elite": "💎",
+  "Legend": "🌟",
+  "Mythic": "🚀",
+  "God Tier": "👑"
+};
+
+document.getElementById("loginComment").textContent = comment;
+
+document.getElementById("loginTitle").textContent =
+  titleEmoji[title] + " " + title;
+} // ← これで閉じる
+
+// 起動時
+updateLoginBonus();
+
+
+// ===== ランク判定 =====
+
+function getStampRank(percent){
+
+  if(percent >= 100){
+    return "👑 Diamond";
+  }
+  else if(percent >= 80){
+    return "💎 Platinum";
+  }
+  else if(percent >= 60){
+    return "🥇 Gold";
+  }
+  else if(percent >= 40){
+    return "🥈 Silver";
+  }
+  else if(percent >= 20){
+    return "🥉 Bronze";
+  }
+
+  return "⚪ Beginner";
+}
+
+ function updateStampCards(){
+
+  const areas = [
+    "asia",
+    "europe",
+    "africa",
+    "america",
+    "oceania"
+  ];
+
+  areas.forEach(area => {
+
+    const percent =
+      getContinentProgress(area);
+
+    // ===== 要素取得 =====
+    const stamp =
+      document.getElementById(area + "Stamp");
+
+    // ===== %表示 =====
+    document.getElementById(area + "Percent").textContent =
+      percent + "%";
+
+    // ===== バー =====
+    document.getElementById(area + "Bar").style.width =
+      percent + "%";
+
+    // ===== ランク =====
+    stamp.textContent =
+      getStampRank(percent);
+
+    // ===== 次ランク =====
+    document.getElementById(area + "Next").textContent =
+      getNextRankText(percent);
+
+    // ===== Diamond演出 =====
+    stamp.classList.remove("diamond");
+
+    if(percent >= 100){
+      stamp.classList.add("diamond");
+    }
+
+    // ===== 総数 =====
+const totalCountries = countries.length;
+
+const memorizedCount =
+  memorizedCountries.length;
+
+const remaining =
+  totalCountries - memorizedCount;
+
+// 表示
+document.getElementById("memorizedCount").textContent =
+  memorizedCount;
+
+document.getElementById("remainingCount").textContent =
+  remaining;
+
+  });
+}
+
+
+function getNextRankText(percent){
+
+  if(percent < 20){
+    return `あと${20-percent}%でBronze！`;
+  }
+  else if(percent < 40){
+    return `あと${40-percent}%でSilver！`;
+  }
+  else if(percent < 60){
+    return `あと${60-percent}%でGold！`;
+  }
+  else if(percent < 80){
+    return `あと${80-percent}%でPlatinum！`;
+  }
+  else if(percent < 100){
+    return `あと${100-percent}%でDiamond！`;
+  }
+
+  return "完全制覇！";
+}
+
+function getContinentProgress(continent){
+
+  let continentCountries;
+
+  // ===== Americasは北米＋南米まとめる =====
+  if(continent === "america"){
+
+    continentCountries = countries.filter(c =>
+      c.continent === "northamerica" ||
+      c.continent === "southamerica"
+    );
+
+  }else{
+
+    // ===== 通常 =====
+    continentCountries = countries.filter(c =>
+      c.continent === continent
+    );
+  }
+
+  // ===== 覚えた国 =====
+  const memorized =
+    continentCountries.filter(c =>
+      memorizedCountries.includes(c.code)
+    );
+
+  // ===== パーセント =====
+  return Math.round(
+    memorized.length /
+    continentCountries.length * 100
+  );
+}
+
+updateStampCards();

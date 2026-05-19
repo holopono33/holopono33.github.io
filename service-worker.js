@@ -1,4 +1,4 @@
-const CACHE_NAME = "flag-quiz-v24-20260423";
+const CACHE_NAME = "flag-quiz-v25-20260518";
 
 const urlsToCache = [
   "./",
@@ -22,7 +22,7 @@ const flagCodes = [
   "na","ni","ne","nz","np","no","bh","ht","pk","va","pa","vu","bs","pg","pw","py","bb","hu","bd","fj","ph","fi","bt","br","fr","bg","bf",
   "bn","bi","vn","bj","ve","by","bz","pe","be","pl","ba","bw","bo","pt","hn","mh","mg","mw","ml","mt","my","fm","mm","mx","mu","mr","mz",
   "mc","mv","md","ma","me","jo","la","lv","lt","ly","li","lr","ro","lu","rw","ls","lb","ru","kr","gq","cf","cn","tl","za","ss","jp","mk",
-  "kp","cu","iq","mn","tw","xk","nu","ci","ck"
+  "kp","cu","iq","mn","tw","xk","nu","ci","ck","zw"
 ];
 
 const flagFiles = flagCodes.map(code => "./flags/" + code + ".png");
