@@ -1440,7 +1440,7 @@ button.restoreBtn{
 .flashCard{
   width:100%;
   max-width:420px;
-  height:400px;
+  height:410px;
   margin:auto;
   position:relative;
 
@@ -1482,7 +1482,7 @@ button.restoreBtn{
 }
 
 #flashNameJp{
-  font-size:36px;
+  font-size:32px;
   font-weight:bold;
   margin-bottom:12px;
 }
@@ -1501,24 +1501,14 @@ button.restoreBtn{
 #flashScreen{
   width:100%;
   min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:10px 0;
+  padding-top:50px;
   box-sizing:border-box;
 }
 
-#flashScreen .app{
-  width:100%;
-  max-width:420px;
-  padding:16px;
-  box-sizing:border-box;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  max-height:none;
-  overflow:visible;
+#flashScreen.App{
+    margin:auto;
 }
+
 
 #memorizedBtn{
   position:absolute;
