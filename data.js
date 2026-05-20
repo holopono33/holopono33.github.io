@@ -2773,5 +2773,18 @@ const countries = [
   language:" 英語 / Maori",
   aliases:["くっくしょとう","クックショトウ","cook"]
 },
-
+{
+  jp:"パレスチナ",
+  en:"palestine",
+  code:"ps",
+  continent:"asia",
+  capital:" エルサレム / Jerusalem",
+  population:" 約550万人 / ~5.5M",
+  populationRank:119,
+  landarea:" ~6.0K km²",
+  areaRank:167,
+  currency:" パレスチナ・ポンド / ILS",
+  language:" アラビア語 / Arabic",
+  aliases:["ぱれすちな","Palestine","パレスチナ国"]
+},
 ];

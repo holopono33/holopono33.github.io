@@ -1401,11 +1401,10 @@ text-align:left;
 }*/
 
 /* 復元案内テキスト */
-.restoreText
-.restoreArea{
-  font-size:11px !important;
-  color:#777;
-  line-height:1.2;
+.restoreText{
+  font-size:13px !important;
+  color:#777!important;;
+  line-height:1.2!important;;
   margin:0 0 4px !important;
 }
 /* 復元ボタン */
@@ -1416,8 +1415,8 @@ button.restoreBtn{
   padding:5px 10px !important;
   margin:4px auto 0 !important;
   display:block !important;
-  font-size:12px !important;
-  border-radius:14px !important;
+  font-size:13px !important;
+  border-radius:13px !important;
   background:#e5e7eb;
   color:#666;
 }
@@ -1445,6 +1444,7 @@ button.restoreBtn{
   position:relative;
   transform-style:preserve-3d;
   transition:transform 0.6s;
+  overflow:hidden;
 }
 
 .flashCard.flipped{
@@ -1457,6 +1457,7 @@ button.restoreBtn{
   width:100%;
   height:100%;
   backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
   border-radius:28px;
   background:#f5f5f5;
   display:flex;
@@ -1465,6 +1466,8 @@ button.restoreBtn{
   align-items:center;
   padding:24px;
   box-sizing:border-box;
+  overflow:hidden;
+  opacity:0;
 }
 
 .cardBack{
@@ -1500,7 +1503,7 @@ button.restoreBtn{
 #flashScreen{
   width:100%;
   min-height:100vh;
-  padding-top:130px;
+  padding-top:115px;
   box-sizing:border-box;
 }
 
@@ -1523,4 +1526,10 @@ button.restoreBtn{
 #memorizedBtn.active{
   color:gold;
   transform:scale(1.1);
+}
+
+.streakText{
+  font-size:18px;
+  font-weight:bold;
+  color:#ff6b00;
 }

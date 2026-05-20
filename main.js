@@ -38,6 +38,7 @@ function toHiragana(str){
 function updateUI(){
 document.getElementById("score").textContent=score;
 document.getElementById("combo").textContent=combo;
+document.getElementById("comboText").textContent = combo;
 document.getElementById("reviewCount").textContent=wrongList.length;
 document.getElementById("accuracy").textContent =
   totalAnswers
@@ -298,7 +299,7 @@ function showGameScreen() {
 function goHome() {
   clearInterval(timer);
   resetTimeAttackState();
-  document.getElementById("homeScreen").style.display = "block";
+  document.getElementById("topScreen").style.display = "block";
   document.getElementById("gameScreen").style.display = "none";
 }
 
