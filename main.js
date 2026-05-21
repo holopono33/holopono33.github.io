@@ -1035,12 +1035,29 @@ JSON.parse(localStorage.getItem("memorizedCountries")) || [];
 // =========================
 // フラッシュカード開始
 // =========================
+let flashCards = [];
+
+function shuffleArray(array){
+
+  for(let i = array.length - 1; i > 0; i--){
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [array[i], array[j]] =
+    [array[j], array[i]];
+  }
+
+  return array;
+}
 
 function Flash(){
 
   hideAllScreens();
 
   document.getElementById("flashScreen").style.display = "block";
+
+  // 全部ランダム＆重複なし
+  flashCards = shuffleArray([...countries]);
 
   currentIndex = 0;
 
@@ -1057,7 +1074,7 @@ function showFlashCard(index){
   // 裏返りリセット
   flashCard.classList.remove("flipped");
 
-  const country = countries[index];
+  const country = flashCards[index];
 
   const continentLabels = {
     asia: "アジア / Asia",
@@ -1110,7 +1127,7 @@ memorizedBtn.addEventListener("click", (e) => {
 
   e.stopPropagation();
 
-  const country = countries[currentIndex];
+  const country = flashCards[currentIndex];
 
   if(memorizedCountries.includes(country.code)){
 
@@ -1140,7 +1157,7 @@ function nextCountry(){
 
   currentIndex++;
 
-  if(currentIndex >= countries.length){
+  if(currentIndex >= flashCards.length){
     currentIndex = 0;
   }
 
@@ -1157,7 +1174,7 @@ function prevCountry(){
   currentIndex--;
 
   if(currentIndex < 0){
-    currentIndex = countries.length - 1;
+    currentIndex = flashCards.length - 1;
   }
 
   showFlashCard(currentIndex);
