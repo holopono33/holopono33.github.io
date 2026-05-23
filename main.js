@@ -656,13 +656,20 @@ async function startPurchase() {
   }
 
   // iPhone（Capacitor）
-  else if (window.Capacitor) {
+  else if (window.Capacitor && PurchasePlugin) {
     try {
-      await PurchasePlugin.purchase();
-      unlockEncyclopedia();
+      console.log("purchase start");
+      const result = await PurchasePlugin.purchase();
+      console.log("purchase result", result);
+      if (result.success) {
+        unlockEncyclopedia();
+      } else {
+        alert("購入に失敗しました/Purchase failed.");
+      }
+
     } catch (e) {
+      console.error("purchase error", e);
       alert("購入に失敗しました/Purchase failed.");
-      console.error(e);
     }
   }
 
@@ -683,18 +690,20 @@ async function restoreEncyclopediaPurchase() {
   }
 
   else if (window.Capacitor) {
-    try {
-      await PurchasePlugin.restore();
+
+  try {
+
+    const result = await PurchasePlugin.restore();
+    if (result.success) {
       unlockEncyclopedia();
       alert("購入を復元しました/Purchase restored.");
-    } catch (e) {
+    } else {
       alert("復元できませんでした/Failed to restore purchase.");
-      console.error(e);
     }
-  }
 
-  else {
-    alert("この環境では復元できません/Restoration is not available in this environment.");
+  } catch (e) {
+    alert("復元できませんでした/Failed to restore purchase.");
+    console.error(e);
   }
 }
 
