@@ -642,83 +642,129 @@ function openEncyclopedia() {
 
 // 購入案内
 function showPurchaseDialog() {
+
   const ok = confirm("図鑑モードは有料です。購入しますか？/Encyclopedia Mode is paid. Purchase?");
+
   if (ok) {
+
     startPurchase();
+
   }
 }
 
 // あとでiPhone / Android課金をつなぐ場所
 async function startPurchase() {
+
   // Android
   if (window.Android) {
+
     window.Android.purchaseItem("encyclopedia_unlock");
+
   }
 
   // iPhone（Capacitor）
   else if (window.Capacitor && PurchasePlugin) {
+
     try {
+
       console.log("purchase start");
+
       const result = await PurchasePlugin.purchase();
+
       console.log("purchase result", result);
+
       if (result.success) {
+
         unlockEncyclopedia();
+
       } else {
+
         alert("購入に失敗しました/Purchase failed.");
+
       }
 
     } catch (e) {
+
       console.error("purchase error", e);
+
       alert("購入に失敗しました/Purchase failed.");
+
     }
   }
 
   // テスト（PC）
   else {
+
     const ok = confirm("テスト購入しますか？");
+
     if (ok) unlockEncyclopedia();
+
   }
 }
 
 async function restoreEncyclopediaPurchase() {
+
   if (window.Android) {
+
     if (window.Android.restorePurchase) {
+
       window.Android.restorePurchase("encyclopedia_unlock");
+
     } else {
+
       alert("このAndroid版では復元がまだ未対応です");
+
     }
+
   }
 
-  else if (window.Capacitor) {
+  else if (window.Capacitor && PurchasePlugin) {
 
-  try {
+    try {
 
-    const result = await PurchasePlugin.restore();
-    if (result.success) {
-      unlockEncyclopedia();
-      alert("購入を復元しました/Purchase restored.");
-    } else {
+      const result = await PurchasePlugin.restore();
+
+      if (result.success) {
+
+        unlockEncyclopedia();
+
+        alert("購入を復元しました/Purchase restored.");
+
+      } else {
+
+        alert("復元できませんでした/Failed to restore purchase.");
+
+      }
+
+    } catch (e) {
+
       alert("復元できませんでした/Failed to restore purchase.");
-    }
 
-  } catch (e) {
-    alert("復元できませんでした/Failed to restore purchase.");
-    console.error(e);
+      console.error(e);
+
+    }
   }
 }
 
 // 購入完了後に呼ぶ
 function unlockEncyclopedia() {
+
   isEncyclopediaUnlocked = true;
+
   localStorage.setItem("encyclopediaUnlocked", "true");
+
   alert("図鑑モードが解放されました/Mode unlocked.");
+
   showContinentScreen();
 }
 
 // デバッグ用（本番使用しない）
 function resetEncyclopediaPurchase() {
+
   localStorage.removeItem("encyclopediaUnlocked");
+
   isEncyclopediaUnlocked = false;
+
   alert("図鑑課金状態をリセットしました/mode reset.");
 }
 
