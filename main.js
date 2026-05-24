@@ -25,9 +25,46 @@ let timeAttackTimer;
 function normalize(t){ return t.trim().toLowerCase(); }
 
 // 👇ここに追加
-const PurchasePlugin = window.Capacitor?.registerPlugin
-  ? window.Capacitor.registerPlugin("PurchasePlugin")
-  : null;
+//const PurchasePlugin = window.Capacitor?.registerPlugin
+  //? window.Capacitor.registerPlugin("PurchasePlugin")
+  //: null;
+document.addEventListener('deviceready', initStore, false);
+
+function initStore() {
+
+  if (!window.CdvPurchase) {
+    console.log("CdvPurchase not found");
+    return;
+  }
+
+  const store = CdvPurchase.store;
+
+  store.register([{
+    id: "encyclopedia_unlock",
+    type: CdvPurchase.ProductType.NON_CONSUMABLE,
+    platform: CdvPurchase.Platform.APPLE_APPSTORE
+  }]);
+
+  store.when()
+    .approved(transaction => {
+      transaction.verify();
+    });
+
+  store.when()
+    .verified(receipt => {
+
+      unlockEncyclopedia();
+
+      receipt.finish();
+    });
+
+  store.initialize([
+    CdvPurchase.Platform.APPLE_APPSTORE
+  ]);
+
+  console.log("Store initialized");
+}
+
 
 function toHiragana(str){
   return str.replace(/[\u30a1-\u30f6]/g, function(match){
@@ -652,61 +689,126 @@ function showPurchaseDialog() {
   }
 }
 
-// あとでiPhone / Android課金をつなぐ場所
-async function startPurchase() {
+// =========================
+// 課金初期化
+// =========================
 
-  console.log("window.Capacitor", window.Capacitor);
-  console.log("PurchasePlugin", PurchasePlugin);
+document.addEventListener("deviceready", initStore, false);
+
+function initStore() {
+
+  if (!window.CdvPurchase) {
+
+    console.log("CdvPurchase not found");
+
+    return;
+  }
+
+  const store = CdvPurchase.store;
+
+  store.register([{
+    id: "encyclopedia_unlock",
+    type: CdvPurchase.ProductType.NON_CONSUMABLE,
+    platform: CdvPurchase.Platform.APPLE_APPSTORE
+  }]);
+
+  // 購入成功
+  store.when()
+    .approved(transaction => {
+
+      console.log("approved");
+
+      transaction.verify();
+    });
+
+  // 検証成功
+  store.when()
+    .verified(receipt => {
+
+      console.log("verified");
+
+      unlockEncyclopedia();
+
+      receipt.finish();
+    });
+
+  // エラー
+  store.error(error => {
+
+    console.error("Store error", error);
+
+  });
+
+  // 初期化
+  store.initialize([
+    CdvPurchase.Platform.APPLE_APPSTORE
+  ]);
+
+  console.log("Store initialized");
+}
+
+
+// =========================
+// 購入開始
+// =========================
+
+async function startPurchase() {
 
   // Android
   if (window.Android) {
 
     window.Android.purchaseItem("encyclopedia_unlock");
 
+    return;
   }
 
-  // iPhone（Capacitor）
-  else if (window.Capacitor && PurchasePlugin) {
+  // iPhone
+  if (window.Capacitor && window.CdvPurchase) {
+
+    const store = CdvPurchase.store;
+
+    const product = store.get("encyclopedia_unlock");
+
+    console.log("product", product);
+
+    if (!product) {
+
+      alert("商品が見つかりません/Product not found.");
+
+      return;
+    }
 
     try {
 
-      console.log("purchase start");
-
-      const result = await PurchasePlugin.purchase();
-
-      console.log("purchase result", result);
-
-      if (result.success) {
-
-        unlockEncyclopedia();
-
-      } else {
-
-        alert("購入に失敗しました/Purchase failed.");
-
-      }
+      product.getOffer().order();
 
     } catch (e) {
 
-      console.error("purchase error", e);
+      console.error(e);
 
       alert("購入に失敗しました/Purchase failed.");
-
     }
+
+    return;
   }
 
-  // テスト（PC）
-  else {
+  // PCテスト
+  const ok = confirm("テスト購入しますか？");
 
-    const ok = confirm("テスト購入しますか？");
+  if (ok) {
 
-    if (ok) unlockEncyclopedia();
-
+    unlockEncyclopedia();
   }
 }
 
+
+// =========================
+// 購入復元
+// =========================
+
 async function restoreEncyclopediaPurchase() {
 
+  // Android
   if (window.Android) {
 
     if (window.Android.restorePurchase) {
@@ -716,37 +818,31 @@ async function restoreEncyclopediaPurchase() {
     } else {
 
       alert("このAndroid版では復元がまだ未対応です");
-
     }
 
+    return;
   }
 
-  else if (window.Capacitor && PurchasePlugin) {
+  // iPhone
+  if (window.Capacitor && window.CdvPurchase) {
 
     try {
 
-      const result = await PurchasePlugin.restore();
+      CdvPurchase.store.restorePurchases();
 
-      if (result.success) {
-
-        unlockEncyclopedia();
-
-        alert("購入を復元しました/Purchase restored.");
-
-      } else {
-
-        alert("復元できませんでした/Failed to restore purchase.");
-
-      }
+      alert("購入復元を開始しました/Restoring purchases.");
 
     } catch (e) {
 
-      alert("復元できませんでした/Failed to restore purchase.");
-
       console.error(e);
 
+      alert("復元できませんでした/Failed to restore purchase.");
     }
+
+    return;
   }
+
+  alert("この環境では復元できません");
 }
 
 // 購入完了後に呼ぶ
