@@ -655,6 +655,9 @@ function showPurchaseDialog() {
 // あとでiPhone / Android課金をつなぐ場所
 async function startPurchase() {
 
+  console.log("window.Capacitor", window.Capacitor);
+  console.log("PurchasePlugin", PurchasePlugin);
+
   // Android
   if (window.Android) {
 
