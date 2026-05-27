@@ -670,11 +670,12 @@ window.addEventListener("load", () => {
 
 // 図鑑モードを開く入口
 function openEncyclopedia() {
-  if (isEncyclopediaUnlocked) {
-    showContinentScreen();
-  } else {
-    showPurchaseDialog();
-  }
+  //if (isEncyclopediaUnlocked) {
+    //showContinentScreen();
+  //} else {
+    //showPurchaseDialog();
+  //}
+  alert("図鑑モードは次回アップデート予定です / Coming Soon");
 }
 
 // 購入案内
