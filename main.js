@@ -52,8 +52,8 @@ function initStore() {
 
   store.when()
     .verified(receipt => {
-
-      unlockEncyclopedia();
+// 一時停止中
+       // unlockEncyclopedia();
 
       receipt.finish();
     });
@@ -742,8 +742,8 @@ function initStore() {
     .verified(receipt => {
 
       console.log("verified");
-
-      unlockEncyclopedia();
+// 一時停止中
+    // unlockEncyclopedia();
 
       receipt.finish();
     });
@@ -812,8 +812,8 @@ async function startPurchase() {
   const ok = confirm("テスト購入しますか？");
 
   if (ok) {
-
-    unlockEncyclopedia();
+// 一時停止中
+    //unlockEncyclopedia();
   }
 }
 
@@ -864,13 +864,18 @@ async function restoreEncyclopediaPurchase() {
 // 購入完了後に呼ぶ
 function unlockEncyclopedia() {
 
-  isEncyclopediaUnlocked = true;
 
-  localStorage.setItem("encyclopediaUnlocked", "true");
+  // 図鑑モード停止中
+  return;
 
-  alert("図鑑モードが解放されました/Mode unlocked.");
 
-  showContinentScreen();
+  //isEncyclopediaUnlocked = true;
+
+  //localStorage.setItem("encyclopediaUnlocked", "true");
+
+  //alert("図鑑モードが解放されました/Mode unlocked.");
+
+  //showContinentScreen();
 }
 
 // デバッグ用（本番使用しない）
