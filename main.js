@@ -664,8 +664,14 @@ let isEncyclopediaUnlocked = false;
 
 // 起動時に購入状態を復元
 window.addEventListener("load", () => {
-  isEncyclopediaUnlocked =
-    localStorage.getItem("encyclopediaUnlocked") === "true";
+// 強制的にOFF
+  isEncyclopediaUnlocked = false;
+
+  // 保存データも削除
+  localStorage.removeItem("encyclopediaUnlocked");
+
+ // isEncyclopediaUnlocked =
+   // localStorage.getItem("encyclopediaUnlocked") === "true";
 });
 
 // 図鑑モードを開く入口
@@ -676,6 +682,15 @@ function openEncyclopedia() {
     //showPurchaseDialog();
   //}
   alert("図鑑モードは次回アップデート予定です / Coming Soon");
+}
+
+
+// 購入完了後に呼ぶ
+function unlockEncyclopedia() {
+
+  // 今は無効化
+  return;
+
 }
 
 // 購入案内
