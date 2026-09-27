@@ -1,507 +1,211 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<meta name="theme-color" content="#2196f3">
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
-<title>国旗クイズ / FLAG QUIZ</title>
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07152f">
+  <meta name="description" content="holopono33 - オリジナルアプリを制作・公開しています。ホロスコープ、国旗クイズ、リズムゲームなど。">
+  <title>holopono33 | APP CREATOR</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div id="loadingScreen">
-  <p>初回準備中... / Loading...</p>
-</div>
+  <div class="stars" aria-hidden="true"></div>
 
-<!-- 🏠 TOPページ -->
-<div id="topScreen" class="topMenu screen">
+  <header class="site-header">
+    <a class="brand" href="#top">holopono33</a>
 
-  <div class="app">
+    <nav class="nav">
+      <a href="#apps">APPS</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </header>
 
-    <!-- タイトル -->
-    <div class="topHeader">
+  <main id="top">
 
-       <div class="titleArea">
-         <h1><span class="mainLogo">🌍 FLAG QUIZ</span><br>
-             <span class="subLogo"> 世界199カ国 国旗クイズ -Learn the flags-</span>
-        </h1>
-        <div class="loginMessageArea">
-        <div id="loginComment" class="loginComment">
-          今日からスタート！
-        </div>
-        <div class="loginCharacter">
-         🦉
-        </div>
-        <div id="loginTitle" class="loginTitle">あ</div>
-        <!--<div class="loginCharacter">
-         🦉
-        </div>-->
-       </div></div>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
 
-     <div class="loginBadge">
-     🔥 <span id="loginDays">0</span>日連続
-     </div>
+      <div class="hero-content">
+        <div class="star-mark">✦</div>
+        <p class="eyebrow">APP CREATOR</p>
+        <h1>holopono33</h1>
+        <div class="gold-line"></div>
+        <p class="hero-subtitle">App Development</p>
+        <p class="hero-tags">Astrology <span>·</span> Game <span>·</span> Quiz</p>
 
-    </div>
+        <a class="scroll-button" href="#apps">
+          MY APPS
+          <span>↓</span>
+        </a>
+      </div>
+    </section>
 
-    <!-- メニュー -->
-     <div class="topButtonGroup">
+    <!-- Apps -->
+    <section class="section apps-section" id="apps">
+      <div class="section-heading">
+        <span class="heading-line"></span>
+        <h2>MY APPS</h2>
+        <span class="heading-line"></span>
+      </div>
 
-      <!-- 暗記モード -->
-      <button class="topBtn memoryBtn" onclick="openMemoryMenu()">
-        <span class="mode-title">🧠 暗記モード/Memorization</span>
-        <span class="topSubText">Memorize flags / 国旗を覚える練習</span>
-      </button>
-
-      <!-- ゲームモード -->
-      <button class="topBtn gameBtn" onclick="openGameMenu()">
-        <span class="mode-title">🎮 ゲームモード/Game</span>
-        <span class="topSubText">Quiz game / 実力チェック</span>
-      </button>
-
-      <!-- Progress　-->
-      <button class="topBtn stampBtn" onclick="openstampMenu()">
-        <span class="mode-title">🏅 達成状況/Progress</span>
-        <span class="topSubText">Your progress / 学習の達成状況</span>
-      </button>    
-
-      <!-- 記録 -->
-      <div id="timeAttackResult" class="timeResultBox">
-      <h3>🏆チャレンジ記録 /challenge record</h3>
-      <p>今回 / Score: <span id="currentScore">-</span></p>
-      <p>最高スコア / High score: <span id="taHighScore">0</span></p>
-      <p style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:0;">
-      <span>ランク / Rank: <span id="taRank">-</span></span>
-      <span>順位 / Place: <span id="taRanking">-</span></span>
+      <p class="section-lead">
+        日常をもっと楽しく、学びや癒しをあなたに。<br>
+        オリジナルアプリを制作・公開しています。
       </p>
+
+      <div class="app-grid">
+
+        <!-- Horoscope -->
+        <article class="app-card astrology">
+          <div class="app-visual">
+            <div class="app-icon astrology-icon" aria-label="ホロスコープアイコン">
+              <span>✦</span>
+              <small>☽</small>
+            </div>
+          </div>
+
+          <div class="app-info">
+            <span class="category">ASTROLOGY</span>
+            <h3>星めぐり‐出生図から読み解く</h3>
+            <p>
+              生まれた瞬間の星を一枚の地図に。出生図から10天体を読み解き、世界地図に広がる星のラインから、あなたと場所のつながりを探します。            </p>
+
+            <div class="store-buttons">
+              <!-- 公開したら <a class="store-button" href="URL" target="_blank" rel="noopener"> に戻す -->
+              <span class="store-button coming-soon">
+                <span class="store-icon">●</span>
+                <span><small>COMING SOON</small>App Store</span>
+              </span>
+              <span class="store-button coming-soon">
+                <span class="store-icon play">▶</span>
+                <span><small>COMING SOON</small>Google Play</span>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Flag Quiz -->
+        <article class="app-card quiz">
+          <div class="app-visual">
+            <div class="app-icon globe-icon" aria-label="国旗クイズアイコン">
+              <span>🌍</span>
+            </div>
+          </div>
+
+          <div class="app-info">
+            <span class="category">QUIZ</span>
+            <h3>国旗クイズ 世界199カ国</h3>
+            <p>
+              国旗と地理を楽しく学べるクイズアプリ。
+              4つのモードで、遊びながら世界の国を覚えられます。
+            </p>
+
+            <div class="store-buttons">
+              <a class="store-button" href="https://apps.apple.com/jp/app/国旗クイズ-世界199カ国-地理-flag-quiz/id6761651412" target="_blank" rel="noopener">
+                <span class="store-icon">●</span>
+                <span><small>Download on the</small>App Store</span>
+              </a>
+              <!-- 公開したら <a class="store-button" href="URL" target="_blank" rel="noopener"> に戻す -->
+              <span class="store-button coming-soon">
+                <span class="store-icon play">▶</span>
+                <span><small>COMING SOON</small>Google Play</span>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slime -->
+        <article class="app-card game">
+          <div class="app-visual">
+            <div class="app-icon slime-icon" aria-label="Slime Squeeze Beat アイコン">
+              <span>♪</span>
+              <b>●</b>
+            </div>
+          </div>
+
+          <div class="app-info">
+            <span class="category">GAME</span>
+            <h3>Slime Squeeze Beat</h3>
+            <p>
+              スライムをタップして楽しむリズム＆ASMRゲーム。
+              タイミングよくタップしてコンボをつなげよう。
+            </p>
+
+            <div class="store-buttons">
+              <a class="store-button" href="https://apps.apple.com/jp/app/slime-squeeze-beat-rhythm-game/id6787123364" target="_blank" rel="noopener">
+                <span class="store-icon">●</span>
+                <span><small>Download on the</small>App Store</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
       </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-  <!-- 🏅 スタンプカード -->
-    <div id="stampCard" class="stampCardBox screen" style="display:none;">
-      <div class="app">
-        <h3 class="modeTitle">🏅 達成状況 / Progress</h3>
-        <div class="overallProgress">
-
-  <div class="overallStars">
-    ⭐ 覚えた国:
-    <span id="memorizedCount">0</span>
-  </div>
-
-  <div class="overallRemaining">
-    🌍 あと
-    <span id="remainingCount">0</span>
-    カ国で完全制覇！
-  </div>
-
-</div>
-        <div class="stampGrid">
-        <div class="stampItem">
-
-        <div class="stampTop">
-         🌸 Asia 
+    <!-- About -->
+    <section class="section about-section" id="about">
+      <div class="about-box">
+        <div class="about-star">✦</div>
+        <p class="eyebrow">ABOUT HOLOPONO33</p>
+        <h2>Ideas into Apps.</h2>
+        <p>
+          「こんなアプリがあったら楽しい」を形にして、<BR>
+          毎日の生活に小さな楽しさを届けるアプリを制作しています。
+        </p>
+        <div class="about-tags">
+          <span>ASTROLOGY</span>
+          <span>QUIZ</span>
+          <span>GAME</span>
+          <span>CREATIVE</span>
         </div>
-       <!-- バー + % -->
-         <div class="progressRow">
-         <div class="progressBar">
-         <div id="asiaBar" class="progressFill"></div>
-         </div>
-         <div class="progressText">
-         <span id="asiaPercent">0%</span>
-         </div></div>
+      </div>
+    </section>
 
-       <!-- ランク + 次 -->
-       <div class="stampBottom">
-       <div id="asiaStamp" class="stampRank">
-         🥉 Bronze
-       </div>
-       <div id="asiaNext" class="nextGoal">
-         あと3問でGold！
-       </div>
-       </div></div>
-
-        <!--  Europe -->
-          <div class="stampItem">
-          <div class="stampTop">
-            🏰 Europe
-          </div>
-       <!-- バー + % -->
-         <div class="progressRow">
-         <div class="progressBar">
-           <div id="europeBar" class="progressFill"></div>
-         </div>
-         <div class="progressText">
-         <span id="europePercent">0%</span>
-         </div></div>
-
-       <!-- ランク + 次 -->
-         <div class="stampBottom">
-         <div id="europeStamp" class="stampRank">
-           🥈 Silver
-          </div>
-          <div id="europeNext" class="nextGoal">
-             あと3問でGold！
-          </div></div>
-          </div>
-
-        <!-- 🌍 Africa -->
-          <div class="stampItem">
-          <div class="stampTop">
-             🦁 Africa
-          </div>
-        <!-- バー + % -->
-          <div class="progressRow">
-          <div class="progressBar">
-          <div id="africaBar" class="progressFill"></div>
-          </div>
-
-          <div class="progressText">
-          <span id="africaPercent">0%</span>
-          </div></div>
-         <!-- ランク + 次 -->
-          <div class="stampBottom">
-          <div id="africaStamp" class="stampRank">
-           🥇 Gold
-          </div>
-
-         <div id="africaNext" class="nextGoal">
-           あと3問でPlatinum！
-         </div></div>
-         </div>
-  
-        <!--  Americas -->
-          <div class="stampItem">
-          <div class="stampTop">
-            🗽 Americas
-          </div>
-          <!-- バー + % -->
-          <div class="progressRow">
-          <div class="progressBar">
-          <div id="americaBar" class="progressFill"></div>
-          </div>
-
-         <div class="progressText">
-         <span id="americaPercent">0%</span>
-         </div></div>
-         <!-- ランク + 次 -->
-         <div class="stampBottom">
-         <div id="americaStamp" class="stampRank">
-          💎 Platinum
-         </div>
-
-        <div id="americaNext" class="nextGoal">
-            あと2問でDiamond！
-        </div></div>
-       </div>
-    
-      <!--  Oceania -->
-       <div class="stampItem">
-       <div class="stampTop">
-           🐨 Oceania
-        </div>
-        <!-- バー + % -->
-        <div class="progressRow">
-        <div class="progressBar">
-        <div id="oceaniaBar" class="progressFill"></div>
-        </div>
-        <div class="progressText">
-          <span id="oceaniaPercent">100%</span>
-        </div></div>
-        <!-- ランク + 次 -->
-        <div class="stampBottom">
-         <div id="oceaniaStamp" class="stampRank">
-          👑 Diamond
-        </div>
-         <div id="oceaniaNext" class="nextGoal">
-           完全制覇！
-        </div></div>
-        
-       </div>
-       <button class="backBtn" onclick="backToTOP()">🏠 TOPに戻る / Back to TOP</button>
-       </div>
-
-    </div>
-  </div>
-
-  <!-- 🏠 暗記モード -->
-<div id="memorization" class="memorization screen" style="display:none;">
-  <div class="app">
-   <h3 class="modeTitle">🧠 暗記モード / Memorization Mode</h3>
-
-      <div class="menuGroup">
-      <button class="review-btn" onclick="Flash()">
-      <span class="mode-title">🃏フラッシュカード / Flash Cards</span>
-      <span class="mode-subtext">国旗をめくって覚えよう / Flip & memorize flags</span>
-      </button>
-
-     <button class="continent-btn" onclick="openEncyclopedia()">
-      <!--<button class="continent-btn">-->
-      <span class="mode-title">📘 図鑑モード（Coming soon..）</span>
-      <span class="mode-subtext">国旗を見て学ぶ / Browse flags by continent</span>
-     </button>
-
-     <button class="normal-btn">
-      <span class="mode-title"></span>
-      <span class="mode-subtext">🔔 次回更新予定/Coming soon...</span>
-     </button>
-
-     <button class="challenge-btn">
-      <span class="mode-title"></span>
-      <span class="mode-subtext">🔔 次回更新予定/Coming soon...</span>
-     </button>
-     <button class="encyclopediaBtn">
-      <span class="mode-title"></span>
-      <span class="mode-subtext">🔔 次回更新予定/Coming soon...</span>
-     </button>
-
-     </div>
-
-        <!--<div class="restoreArea">
-         <div class="restoreNote">
-           ※機種変更時はこちら👇 / Restore purchases
-         </div>
-         <button class="restoreBtn" onclick="restoreEncyclopediaPurchase()">
-          購入を復元 / Restore Purchases
-        </button>
-        </div>-->
-   <button class="backBtn" onclick="backToTOP()">🏠 TOPに戻る / Back to TOP</button>
- </div>
- </div>
-
-
-<!-- 🏠 ゲームモード -->
-<div id="homeScreen" class="homeMenu screen" style="display:none;">
-  <div class="app">
-   <h3 class="modeTitle">🎮 ゲームモード / Game</h3>
-
-  <div class="menuGroup">
-  <button class="normal-btn" onclick="startNormal()">
-    <span class="mode-title">▶ 通常モード / Normal mode</span>
-    <span class="mode-subtext">全196か国から出題 / All 196 countries</span>
-  </button>
-
-  <!-- 🌎 大陸モードボタン -->
- <button class="continent-btn" onclick="openContinentModal()">
-  <span class="mode-title">🌎 大陸別モード / Continent mode</span>
-  <span class="mode-subtext">選んだ大陸から出題 / Quiz by continent</span>
- </button>
-
-<!-- 🌎 モーダル -->
- <div id="continentModal" class="modal hidden" onclick="closeContinentModal(event)">
-  <div class="modalContent">
-
-    <h4>🌎 大陸を選ぶ / Select a continent</h4>
-
-    <select id="continentSelect" onchange="startContinentFromSelect()">
-      <option value="">選択してください / Choose one</option>
-      <option value="asia">アジア / Asia</option>
-      <option value="europe">ヨーロッパ / Europe</option>
-      <option value="africa">アフリカ / Africa</option>
-      <option value="northamerica">北米 / North America</option>
-      <option value="southamerica">南米 / South America</option>
-      <option value="oceania">オセアニア / Oceania</option>
-    </select>
-
-    <button class="modalCloseBtn" onclick="closeContinentModal()">
-     × 閉じる / Close
-    </button>
-    </div>
-  </div>
-    <button class="review-btn" onclick="startReview()">
-    <span class="mode-title">🔁 復習モード / Review mode</span>
-    <span class="mode-subtext">間違えた国を復習 / Review missed flags</span>
-    </button>
-
-    <button class="challenge-btn" onclick="startTimeAttack()">
-    <span class="mode-title">🏆 1分チャレンジ / 1-Min challenge</span>
-    <!-- <span class="mode-subtext">1分で何問解けるか挑戦 / Solve as many as you can in 1 minute</span>-->
-    </button>
-  
-    <button class="encyclopediaBtn">
-    <span class="mode-title"></span>
-    <span class="mode-subtext">🔔 次回更新予定/Coming soon...</span>
-    </button>
-   </div>
-<!--
-　<div id="timeAttackResult" class="timeResultBox">
-  <h3>🏆 記録 /challenge record</h3>
-  <p>今回 / Score: <span id="currentScore">-</span></p>
-  <p>最高スコア / High score: <span id="taHighScore">0</span></p>
-  <p style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:0;">
-  <span>ランク / Rank: <span id="taRank">-</span></span>
-  <span>順位 / Place: <span id="taRanking">-</span></span>
-  </p>
-　</div>-->
-
-   <div class="restoreArea">
-    <div class="restoreNote">
-         難しいと感じたら暗記モードで練習しましょう👇
-        <br>If it feels difficult, try the Memorization mode.
-    </div>
-    <button class="restoreBtn" onclick="backTomemorization()">
-        🧠暗記モード / Memorization mode
-    </button>
-  </div>
-   <button class="backBtn" onclick="backToTOP()">🏠 TOPに戻る / Back to TOP</button>
-</div>
-</div>
-
-<!-- 🎮 ゲーム画面 -->
-
-<div id="gameScreen" class="screen" style="display:none;">
-<div class="app">
-<div class="topbar">
-<div>🎯 正解数/Score:<span id="score">0</span></div>
-<div style="display:none;">Continue:<span id="combo">0</span></div>
-<div class="timer">⏱<span id="time">10</span></div>
-<div>🔁復習/Review:<span id="reviewCount">0</span></div>
-<div style="display:none;">🏆:<span id="highScore">0</span></div>
-
-</div>
-  
-  <h2 id="modeTitle"></h2>
-  <div id="accuracyBox" style="display:none;">正答率/Accuracy: <span id="accuracy">-</span></div>
-   <div class="streakText">
-  🔥 <span id="comboText">0</span>連続正解！
-  </div>
-  <div class="flagWrap">
-  <img id="flag">
- </div>
-  <p id="result"></p>
-  <input type="text" id="answer" placeholder="国名を入力/country name here">
-  <button class="word" onclick="checkAnswer()">答える / Answer</button>
-  <button class="skip" onclick="skipQuestion()">次へ / Skip</button>
-  <button id="pauseBtn" class="pause" onclick="togglePause()">⏸ 停止 / Pause</button>
-  <button onclick="goHome()"> 🎮チャレンジに戻る / Back to Home</button>
-</div></div>
-
-
-<!-- 🌍 図鑑モード：大陸選択 -->
-<div id="continentScreen" class="screen" style="display:none;">
-  <div class="app">
-    <h2 class="modeTitle">📘 図鑑モード / Encyclopedia</h2>
-    <p class="modeSub">大陸を選んでください !</p>
-
-    <div class="continentButtons">
-      <button onclick="showFlagList('asia')">アジア / Asia</button>
-      <button onclick="showFlagList('europe')">ヨーロッパ / Europe</button>
-      <button onclick="showFlagList('africa')">アフリカ / Africa</button>
-      <button onclick="showFlagList('northamerica')">北アメリカ / North America</button>
-      <button onclick="showFlagList('southamerica')">南アメリカ / South America</button>
-      <button onclick="showFlagList('oceania')">オセアニア / Oceania</button>
-    </div>
-
-    <button class="backBtn" onclick="backTomemorization()">🧠暗記モードに戻る/to Memorization</button>
-  </div>
-</div>
-
-<!-- 🏳️ 国旗一覧画面 -->
-<div id="flagListScreen" class="screen" style="display:none;">
-  <div class="app">
-    <div class="flagListWrapper">
-      <h2 id="flagListTitle">国旗一覧</h2>
-
-      <div id="flagList" class="flagOnlyGrid"></div>
-
-      <div class="pageControls">
-        <button class="pageBtn prevBtn" onclick="prevFlagPage()">⬅ 前へ</button>
-        <span id="pageIndicator">1 / 1</span>
-        <button class="pageBtn nextBtn" onclick="nextFlagPage()">次へ ➡</button>
+    <!-- Contact / Social -->
+    <section class="section contact-section" id="contact">
+      <div class="section-heading">
+        <span class="heading-line"></span>
+        <h2>FOLLOW ME</h2>
+        <span class="heading-line"></span>
       </div>
 
-      <button class="backBtn" onclick="showContinentScreen()">⬅ 大陸選択へ戻る / Back</button>
-    </div>
-  </div>
-</div>
+      <p class="section-lead">最新アプリや日々の発信はこちらから。</p>
 
-<!-- 🔍 国詳細画面 -->
-<div id="countryDetailScreen" class="screen" style="display:none;">
-  <div class="app">
-    <h2 id="detailModeTitle">🌍 国の情報 / Country Info</h2>
-
-    <div id="detailCardBody">
-      <div class="flagWrap">
-        <img id="detailFlag" alt="flag">
+      <div class="social-links">
+        <a class="social-card" href="https://www.instagram.com/otasukeslime/" target="_blank" rel="noopener">
+          <span class="social-symbol">◎</span>
+          <span>
+            <small>INSTAGRAM</small>
+            @otasukeslime
+          </span>
+          <b>→</b>
+        </a>
       </div>
+    </section>
 
-      <div class="detailInfo">
-        <p id="detailNameJp" class="mainName"></p>
-        <p id="detailNameEn" class="subName"></p>
-        <p id="detailContinent" class="subName"></p>
+  </main>
 
-        <div id="detailExtraInfo" class="detailExtraInfo"></div>
-      </div>
-    </div>
+  <footer>
+    <div class="footer-brand">holopono33</div>
+    <p>© 2026 holopono33. All rights reserved.</p>
+  </footer>
 
-    <button class="backBtn" id="detailBackBtn">⬅ 一覧へ戻る / Back</button>
-  </div>
-</div>
-
-<!-- 🔥 Flash Card -->
-
-<div id="flashScreen" class="screen" style="display:none;">
-
-   <div class="app">
-
-     <h2 id="detailModeTitle">🃏 Flash Cards</h2>
-
-     <!-- カード本体 -->
-     <div id="flashCard" class="flashCard">
-
-   <!-- 表 -->
-     <div class="cardFace cardFront">
-    
-     <button id="memorizedBtn">★</button>
-
-     <img id="flashFlag" class="flashFlag">
-
-     <p class="tapText">👆Tap to flip/タップしてめくる</p>
-     <p class="tapText">➡️Swipe for next/スワイプで次へ</p>
-     
-   </div>
-
-  <!-- 裏 -->
-   <div class="cardFace cardBack">
-
-    <p id="flashNameJp" class="mainName"></p>
-    <p id="flashNameEn" class="subName"></p>
-    <p id="flashContinent" class="subName"></p>
-
-  </div>
-</div>
-<button class="backBtn" onclick="backTomemorization()">🧠暗記モードに戻る/to Memorization</button>
-</div>
-</div>
-<script src="data.js"></script>
-<script src="main.js"></script>
-
-
-
-<audio id="correctSound"
-src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3"></audio>
-<audio id="wrongSound"
-src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-buzz-950.mp3"></audio>
-
-
-
-<canvas id="confettiCanvas"
-  style="position:fixed;
-         top:0;
-         left:0;
-         width:100%;
-         height:100%;
-         pointer-events:none;
-         z-index:999;">
-</canvas>
-
-
-
+  <script>
+    // Smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
